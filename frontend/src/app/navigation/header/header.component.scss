@@ -12,6 +12,10 @@
 
   &__item {
     margin: 0 10px;
+
+    &--active {
+      color: #4ce1ea;
+    }
   }
 }
 
