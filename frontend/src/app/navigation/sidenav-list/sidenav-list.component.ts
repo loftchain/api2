@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-sidenav-list',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav-list.component.scss']
 })
 export class SidenavListComponent implements OnInit {
+  @Output() closeSidenav = new EventEmitter();
   isAuth = false;
   constructor() { }
 
@@ -13,7 +14,7 @@ export class SidenavListComponent implements OnInit {
   }
 
   onClose() {
-
+    this.closeSidenav.emit();
   }
 
   onLogout() {

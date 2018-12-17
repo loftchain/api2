@@ -4,7 +4,9 @@ import {
   MatSidenavModule,
   MatToolbarModule,
   MatIconModule,
-  MatListModule
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule
 } from '@angular/material';
 
 @NgModule({
@@ -13,14 +15,18 @@ import {
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   exports: [
     MatButtonModule,
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 
