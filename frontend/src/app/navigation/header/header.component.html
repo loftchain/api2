@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <div>
+    <button class="toggle" mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div><a routerLink="/">LoftChain API</a></div>
+  <ul class="nav__list">
+    <li *ngIf="!isAuth" class="nav__item"><a routerLink="/signup" routerLinkActive="nav__item--active">Signup</a></li>
+    <li *ngIf="!isAuth" class="nav__item"><a routerLink="/login" routerLinkActive="nav__item--active">Login</a></li>
+    <li *ngIf="isAuth" class="nav__item"><a routerLink="/customer" routerLinkActive="nav__item--active">Customers</a></li>
+    <li *ngIf="isAuth" class="nav__item"><a routerLink="/transaction" routerLinkActive="nav__item--active">Transactions</a></li>
+    <li *ngIf="isAuth" class="nav__item"><a routerLink="/currency" routerLinkActive="nav__item--active">Currencies</a></li>
+    <li *ngIf="isAuth" class="nav__item"><a class="logout" (click)="onLogout()">Logout</a></li>
+  </ul>
+</mat-toolbar>

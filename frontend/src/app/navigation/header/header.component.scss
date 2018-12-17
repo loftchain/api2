@@ -1,0 +1,41 @@
+.nav {
+  &__list {
+    display: flex;
+    margin: 0 -10px 0 auto;
+    padding: 0;
+    list-style: none;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
+
+  &__item {
+    margin: 0 10px;
+  }
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+
+  &:hover {
+    color: #a19a9a;
+  }
+}
+
+.logout {
+  cursor: pointer;
+
+  &:hover {
+    color: #a19a9a !important;
+  }
+}
+
+.toggle {
+  display: none;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
+}
