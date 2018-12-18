@@ -1,0 +1,27 @@
+<div class="changing-form mat-elevation-z8">
+  <h2 class="changing-form__title">Update currency</h2>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="currency.pair" placeholder="Pair">
+      <mat-option *ngFor="let pair of pairs" [value]="pair.value">
+        {{pair.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="currency.price" placeholder="Price" type="number">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [(ngModel)]="currency.timestamp" matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="changing-form__button-group">
+    <button (click)="updateCurrency()" mat-raised-button color="primary">Update</button>
+    <button routerLink="/currencies" mat-raised-button color="warn">Cancel</button>
+  </div>
+</div>
+
