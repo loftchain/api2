@@ -7,17 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import { SignupComponent } from './user/signup/signup.component';
-import { LoginComponent } from './user/login/login.component';
-import {APP_CONFIG, API} from './app.config';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthHeaderInterceptor} from './user/auth.http.interceptor';
+import { UserModule } from './user/user.module';
+import {environment} from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidenavListComponent,
-    SignupComponent,
-    LoginComponent
+    SidenavListComponent
   ],
   imports: [
     BrowserModule,
@@ -25,10 +24,16 @@ import {APP_CONFIG, API} from './app.config';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    UserModule.forRoot(environment.api)
   ],
   providers: [
-    { provide: APP_CONFIG, useValue: API }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHeaderInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

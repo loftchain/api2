@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {UserWithoutId} from '../user';
-import {APP_CONFIG} from '../../app.config';
+import {ApiUrl} from '../api-url';
 
 @Component({
   selector: 'app-signup',
@@ -15,10 +15,11 @@ export class SignupComponent implements OnInit {
   };
 
   password = '';
-  constructor(@Inject(APP_CONFIG) private API) { }
+  constructor(@Inject(ApiUrl) private apiUrl: string) {
+    console.log(this.apiUrl);
+  }
 
   ngOnInit() {
-    console.log(this.API.URL);
   }
 
   doSignUp() {
