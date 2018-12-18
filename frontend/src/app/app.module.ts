@@ -13,13 +13,15 @@ import { UserModule } from './user/user.module';
 import {environment} from '../environments/environment';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {ResourceModule} from './resource/resource.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
