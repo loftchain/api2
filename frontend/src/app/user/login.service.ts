@@ -4,7 +4,7 @@ import {TokenStorage} from './token.storage';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {catchError, map} from 'rxjs/operators';
-// import {UserStore} from './user.store';
+import {UserStore} from './user.store';
 
 @Injectable()
 export class LoginService {
@@ -14,7 +14,7 @@ export class LoginService {
     @Inject(ApiUrl) private apiUrl: string,
     private tokenStorage: TokenStorage,
     private http: HttpClient,
-    // private userStore: UserStore,
+    private userStore: UserStore,
     private router: Router
   ) {
     this.isLoggedIn = tokenStorage.token !== undefined;
@@ -30,9 +30,9 @@ export class LoginService {
       .subscribe((resp: any) => {
         this.isLoggedIn = true;
         this.tokenStorage.set(resp.token);
-        // this.userStore.setUser(resp.user);
+        this.userStore.setUser(resp.user);
         // this.notifyService.success('logged in');
-        // this.router.navigate(['/welcome']);
+        this.router.navigate(['/welcome']);
       });
   }
 

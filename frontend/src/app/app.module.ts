@@ -11,12 +11,14 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthHeaderInterceptor} from './user/auth.http.interceptor';
 import { UserModule } from './user/user.module';
 import {environment} from '../environments/environment';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SidenavListComponent
+    SidenavListComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
