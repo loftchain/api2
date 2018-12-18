@@ -12,6 +12,7 @@ import {AuthHeaderInterceptor} from './user/auth.http.interceptor';
 import { UserModule } from './user/user.module';
 import {environment} from '../environments/environment';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {ResourceModule} from './resource/resource.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    UserModule.forRoot(environment.api)
+    UserModule.forRoot(environment.api),
+    ResourceModule.forRoot(environment.api)
   ],
   providers: [
     {

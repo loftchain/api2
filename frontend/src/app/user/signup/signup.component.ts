@@ -16,7 +16,6 @@ export class SignupComponent implements OnInit {
 
   password = '';
   constructor(@Inject(ApiUrl) private apiUrl: string) {
-    console.log(this.apiUrl);
   }
 
   ngOnInit() {
