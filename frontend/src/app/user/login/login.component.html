@@ -1,0 +1,25 @@
+<section class="login">
+  <h2>
+    Login
+  </h2>
+  <mat-form-field class="full-width">
+    <input matInput [(ngModel)]="user.email" placeholder="Email" type="email" #email="ngModel"
+           required minlength="7" maxlength="255" pattern="[a-z0-9A-Z_.-]+@[a-zA-Z_.-]+?\.[a-zA-Z]{2,6}">
+    <mat-hint align="end">{{email?.value?.length}}/7</mat-hint>
+    <mat-error *ngIf="email.hasError('required')">Field must not be empty!</mat-error>
+    <mat-error *ngIf="email.hasError('pattern')">Email format should be <b>joe@abc.com</b></mat-error>
+    <mat-error *ngIf="email.hasError('minlength')">Has to be at least 7 characters</mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput type="password" [(ngModel)]="user.password" placeholder="Password" #passwordInput="ngModel"
+           pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$" maxlength="50" required>
+    <mat-hint align="end">{{passwordInput?.value?.length}}/6</mat-hint>
+    <mat-error *ngIf="passwordInput.hasError('required')">Field must not be empty!</mat-error>
+    <mat-error *ngIf="passwordInput.hasError('pattern')">Password must contain at least one uppercase/lowercase letters, one number and one special char</mat-error>
+  </mat-form-field>
+
+    <button [disabled]="email.invalid || passwordInput.invalid" class="submit" type="submit" color="primary" mat-raised-button (click)="doLogin()">
+      Login
+    </button>
+</section>
+
