@@ -1,0 +1,52 @@
+<div class="changing-form mat-elevation-z8">
+  <h2 class="changing-form__title">Create new transaction</h2>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="newTransaction.customer" placeholder="Customer ID">
+      <mat-option (click)="selectCustomer(customer)" *ngFor="let customer of customers" [value]="customer.id">
+        {{customer.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="newTransaction.currency" placeholder="Currency">
+      <mat-option *ngFor="let currency of currencies" [value]="currency.value">
+        {{currency.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="newTransaction.tx_id" placeholder="Transaction_ID">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="newTransaction.from" placeholder="From">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="newTransaction.amount" placeholder="Amount" type="number">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [(ngModel)]="newTransaction.date" matInput [matDatepicker]="picker" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="newTransaction.status" placeholder="Status">
+      <mat-option *ngFor="let status of statuses" [value]="status.value">
+        {{status.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <div class="changing-form__button-group">
+    <button (click)="createTransaction()" mat-raised-button color="primary">Add</button>
+    <button routerLink="/transactions" mat-raised-button color="warn">Cancel</button>
+  </div>
+</div>
+
