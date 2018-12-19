@@ -8,8 +8,9 @@ import { UserService } from 'src/user/user.service';
 import { EmailValidatorService } from 'src/validation/email/email-validator.service';
 import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
 import { PasswordCryptographerService } from './password-cryptographer/password-cryptographer';
+import { apiPath } from 'src/api';
 
-@Controller('auth')
+@Controller(apiPath(1, 'auth'))
 export class AuthController {
     constructor(private readonly authService: AuthService,
                 private readonly userService: UserService,
