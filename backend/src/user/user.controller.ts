@@ -1,18 +1,38 @@
-import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, BadRequestException, ForbiddenException, InternalServerErrorException } from '@nestjs/common';
 import { UserService } from './user.service';
-import { AuthService } from 'src/auth/auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import { async } from 'rxjs/internal/scheduler/async';
+import { EmailValidatorService } from 'src/validation/email/email-validator.service';
+import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
+import { UserDto } from './user.dto';
 
 @Controller('users')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService,
+                private readonly emailValidatorService: EmailValidatorService,
+                private readonly passwordValidatorService: PasswordValidatorService,
+        ) {}
 
     @Post()
-    async create(@Body() requsetBody) {
-        const user = await this.userService.create(requsetBody);
+    async create(@Body() requestBody: UserDto) {
+        const emailValidator = await this.emailValidatorService.validateEmail(requestBody.email);
+        if (!emailValidator.isValid) {
+            throw new BadRequestException('Invalid email!');
+        }
 
-        return user;
+        const passwordValidator = await this.passwordValidatorService.validatePassword(requestBody.password);
+        if (!passwordValidator.isValid) {
+            throw new BadRequestException('Invalid password!');
+        }
+
+        try {
+            return await this.userService.create(requestBody);
+          } catch (err) {
+            if (err.message === 'User already exists') {
+              throw new ForbiddenException(err.message);
+            } else {
+              throw new InternalServerErrorException(err.message);
+            }
+          }
     }
 
     @Get('test')

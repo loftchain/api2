@@ -12,7 +12,7 @@ export class AuthService {
     return this.jwtService.sign(user);
   }
 
-  async validateUser(payload: PayloadInterface): Promise<User> {
-    return await this.userService.checkByPayload(payload);
+  async validateUser(payload): Promise<User> {
+    return await this.userService.checkByPayload(payload.id);
   }
 }
