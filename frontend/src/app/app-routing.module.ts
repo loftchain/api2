@@ -13,22 +13,24 @@ import {EditCustomerComponent} from './customer/edit-customer/edit-customer.comp
 import {TransactionComponent} from "./transaction/transaction.component";
 import {AddTransactionComponent} from "./transaction/add-transaction/add-transaction.component";
 import {EditTransactionComponent} from "./transaction/edit-transaction/edit-transaction.component";
+import {LandingComponent} from "./landing/landing.component";
+import {AuthGuardService} from "./user/auth-guard.service";
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent }
-  { path: 'signup', component: SignupComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'welcome', component: WelcomeComponent},
-  { path: 'currencies', component: CurrencyComponent },
-  { path: 'currencies/create', component: AddCurrencyComponent },
-  { path: 'currencies/edit/:id', component: EditCurrencyComponent },
-  { path: 'customers', component: CustomerComponent },
-  { path: 'customers/create', component: AddCustomerComponent },
-  { path: 'customers/edit/:id', component: EditCustomerComponent },
-  { path: 'transactions', component: TransactionComponent },
-  { path: 'transactions/create', component: AddTransactionComponent },
-  { path: 'transactions/edit/:id', component: EditTransactionComponent },
-  { path: '**', component: PageNotFoundComponent },
+  { path: '', component: LandingComponent, canActivate: [AuthGuardService] },
+  { path: 'signup', component: SignupComponent, canActivate: [AuthGuardService] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuardService] },
+  { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuardService] },
+  { path: 'currencies', component: CurrencyComponent, canActivate: [AuthGuardService] },
+  { path: 'currencies/create', component: AddCurrencyComponent, canActivate: [AuthGuardService] },
+  { path: 'currencies/edit/:id', component: EditCurrencyComponent, canActivate: [AuthGuardService] },
+  { path: 'customers', component: CustomerComponent, canActivate: [AuthGuardService] },
+  { path: 'customers/create', component: AddCustomerComponent, canActivate: [AuthGuardService] },
+  { path: 'customers/edit/:id', component: EditCustomerComponent, canActivate: [AuthGuardService] },
+  { path: 'transactions', component: TransactionComponent, canActivate: [AuthGuardService] },
+  { path: 'transactions/create', component: AddTransactionComponent, canActivate: [AuthGuardService] },
+  { path: 'transactions/edit/:id', component: EditTransactionComponent, canActivate: [AuthGuardService] },
+  { path: '**', component: PageNotFoundComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({

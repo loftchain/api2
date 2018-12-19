@@ -32,6 +32,8 @@ import { EditTransactionComponent } from './transaction/edit-transaction/edit-tr
 import { AddTransactionComponent } from './transaction/add-transaction/add-transaction.component';
 import {AddTransactionService} from './transaction/add-transaction/add-transaction.service';
 import {TransactionService} from './transaction/transaction.service';
+import { LandingComponent } from './landing/landing.component';
+import {AuthGuardService} from './user/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import {TransactionService} from './transaction/transaction.service';
     EditCustomerComponent,
     TransactionComponent,
     EditTransactionComponent,
-    AddTransactionComponent
+    AddTransactionComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +78,8 @@ import {TransactionService} from './transaction/transaction.service';
     AddCustomerService,
     EditCustomerService,
     TransactionService,
-    AddTransactionService
+    AddTransactionService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
