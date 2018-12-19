@@ -1,0 +1,22 @@
+<div class="changing-form mat-elevation-z8">
+  <h2 class="changing-form__title">Edit customer data</h2>
+  <mat-form-field>
+    <input matInput [(ngModel)]="customer.name" placeholder="Customer name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="customer.wallet_eth" placeholder="Edit your ETH wallet">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="customer.wallet_btc" placeholder="Edit your BTC wallet">
+  </mat-form-field>
+
+
+  <div class="changing-form__button-group">
+    <button (click)="updateCustomer()" mat-raised-button color="primary">Save</button>
+    <button routerLink="/customers" mat-raised-button color="warn">Cancel</button>
+  </div>
+</div>
+
+

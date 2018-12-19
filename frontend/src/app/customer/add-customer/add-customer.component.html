@@ -1,0 +1,22 @@
+<div class="changing-form mat-elevation-z8">
+  <h2 class="changing-form__title">Create new customer</h2>
+  <mat-form-field>
+    <input matInput [(ngModel)]="newCustomer.name" placeholder="Customer name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="newCustomer.wallet_eth" placeholder="Enter ETH wallet">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="newCustomer.wallet_btc" placeholder="Enter BTC wallet">
+  </mat-form-field>
+
+
+  <div class="changing-form__button-group">
+    <button (click)="createCustomer()" mat-raised-button color="primary">Add</button>
+    <button routerLink="/customers" mat-raised-button color="warn">Cancel</button>
+  </div>
+</div>
+
+

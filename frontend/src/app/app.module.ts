@@ -20,6 +20,13 @@ import { AddCurrencyComponent } from './currency/add-currency/add-currency.compo
 import {CurrencyService} from './currency/currency.service';
 import {AddCurrencyService} from './currency/add-currency/add-currency.service';
 import { EditCurrencyComponent } from './currency/edit-currency/edit-currency.component';
+import { CustomerComponent } from './customer/customer.component';
+import {EditCurrencyService} from './currency/edit-currency/edit-currency.service';
+import {CustomerService} from './customer/customer.service';
+import { AddCustomerComponent } from './customer/add-customer/add-customer.component';
+import {AddCustomerService} from './customer/add-customer/add-customer.service';
+import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
+import {EditCustomerService} from './customer/edit-customer/edit-customer.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +38,10 @@ import { EditCurrencyComponent } from './currency/edit-currency/edit-currency.co
     CurrencyComponent,
     DeleteComponent,
     AddCurrencyComponent,
-    EditCurrencyComponent
+    EditCurrencyComponent,
+    CustomerComponent,
+    AddCustomerComponent,
+    EditCustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +61,11 @@ import { EditCurrencyComponent } from './currency/edit-currency/edit-currency.co
       multi: true
     },
     CurrencyService,
-    AddCurrencyService
+    AddCurrencyService,
+    EditCurrencyService,
+    CustomerService,
+    AddCustomerService,
+    EditCustomerService
   ],
   bootstrap: [AppComponent]
 })
