@@ -4,8 +4,9 @@ import { AuthGuard } from '@nestjs/passport';
 import { EmailValidatorService } from 'src/validation/email/email-validator.service';
 import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
 import { UserDto } from './user.dto';
+import { apiPath } from 'src/api';
 
-@Controller('users')
+@Controller(apiPath(1, 'users'))
 export class UserController {
     constructor(private readonly userService: UserService,
                 private readonly emailValidatorService: EmailValidatorService,
@@ -13,7 +14,9 @@ export class UserController {
         ) {}
 
     @Post()
-    async create(@Body() requestBody: UserDto) {
+    async create(@Body('user') requestBody: UserDto) {
+        console.log(requestBody);
+
         const emailValidator = await this.emailValidatorService.validateEmail(requestBody.email);
         if (!emailValidator.isValid) {
             throw new BadRequestException('Invalid email!');
