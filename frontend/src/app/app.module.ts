@@ -27,6 +27,11 @@ import { AddCustomerComponent } from './customer/add-customer/add-customer.compo
 import {AddCustomerService} from './customer/add-customer/add-customer.service';
 import { EditCustomerComponent } from './customer/edit-customer/edit-customer.component';
 import {EditCustomerService} from './customer/edit-customer/edit-customer.service';
+import { TransactionComponent } from './transaction/transaction.component';
+import { EditTransactionComponent } from './transaction/edit-transaction/edit-transaction.component';
+import { AddTransactionComponent } from './transaction/add-transaction/add-transaction.component';
+import {AddTransactionService} from './transaction/add-transaction/add-transaction.service';
+import {TransactionService} from './transaction/transaction.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,10 @@ import {EditCustomerService} from './customer/edit-customer/edit-customer.servic
     EditCurrencyComponent,
     CustomerComponent,
     AddCustomerComponent,
-    EditCustomerComponent
+    EditCustomerComponent,
+    TransactionComponent,
+    EditTransactionComponent,
+    AddTransactionComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +73,9 @@ import {EditCustomerService} from './customer/edit-customer/edit-customer.servic
     EditCurrencyService,
     CustomerService,
     AddCustomerService,
-    EditCustomerService
+    EditCustomerService,
+    TransactionService,
+    AddTransactionService
   ],
   bootstrap: [AppComponent]
 })

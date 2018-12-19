@@ -1,0 +1,34 @@
+<div class="changing-form mat-elevation-z8">
+  <h2 class="changing-form__title">Update transaction</h2>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="transaction.currency" placeholder="Currency">
+      <mat-option *ngFor="let currency of currencies" [value]="currency.value">
+        {{currency.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="transaction.tx_id" placeholder="Transaction_ID">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="transaction.from" placeholder="From">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [(ngModel)]="transaction.amount" placeholder="Amount">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input [(ngModel)]="transaction.date" matInput [matDatepicker]="pickerUpdate" placeholder="Choose a date">
+    <mat-datepicker-toggle matSuffix [for]="pickerUpdate"></mat-datepicker-toggle>
+    <mat-datepicker touchUi #pickerUpdate></mat-datepicker>
+  </mat-form-field>
+
+  <div class="changing-form__button-group">
+    <button (click)="updateTransaction()" mat-raised-button color="primary">Update</button>
+    <button routerLink="/transactions" mat-raised-button color="warn">Cancel</button>
+  </div>
+</div>
