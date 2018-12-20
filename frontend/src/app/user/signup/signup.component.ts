@@ -1,6 +1,10 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {UserWithoutId} from '../user';
 import {ApiUrl} from '../api-url';
+import {UserService} from '../user.service';
+import {LoginService} from '../login.service';
+import {UserStore} from '../user.store';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-signup',
@@ -10,23 +14,27 @@ import {ApiUrl} from '../api-url';
 export class SignupComponent implements OnInit {
   newUser: UserWithoutId = {
     email: '',
-    firstName: '',
-    lastName: ''
+    name: '',
+    password: ''
   };
 
-  password = '';
-  constructor(@Inject(ApiUrl) private apiUrl: string) {
+  constructor(
+    @Inject(ApiUrl) private apiUrl: string,
+    private userService: UserService,
+    private loginService: LoginService,
+    private userStore: UserStore,
+    private notifications: NotificationsService
+  ) {
   }
 
   ngOnInit() {
   }
 
   doSignUp() {
-    // this.userService.createUser(this.newUser, this.password).subscribe(user => {
-    //   this.notifyService.success('User created');
-    //   this.loginService.logIn(user.email, this.password);
-    //   this.userStore.setUser(user);
-    // });
+    this.userService.createUser(this.newUser).subscribe(user => {
+      this.notifications.success('User created');
+      this.loginService.logIn(user.email, this.newUser.password);
+      // this.userStore.setUser(user);
+    });
   }
-
 }

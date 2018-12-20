@@ -3,6 +3,7 @@ import {ApiUrl} from './api-url';
 import {HttpClient} from '@angular/common/http';
 import {User, UserWithoutId} from './user';
 import {Observable} from 'rxjs';
+import {NotificationsService} from 'angular2-notifications';
 
 import {map, catchError} from 'rxjs/operators';
 import {of} from 'rxjs/internal/observable/of';
@@ -12,23 +13,24 @@ export class UserService {
   constructor(
     @Inject(ApiUrl) private apiUrl: string,
     private http: HttpClient,
-    // private notifyService: NotifyService,
+    private notifications: NotificationsService
     // private resourceService: ResourceService
   ) {}
 
-  createUser(user: UserWithoutId, password: string): Observable<User> {
-    const $data = this.http
-      .post(this.usersApi, {
-        user: user,
-        password: password
-      }).pipe(
-        map((resp: any) => resp.data)
-      );
-    return $data.pipe(catchError(this.handleError));
+  testAuth(): Observable<any> {
+    return this.http.get(this.apiUrl + 'auth/test');
   }
 
+  createUser(user: UserWithoutId): Observable<any> {
+    const $data = this.http
+      .post(this.usersApi, {
+        user: user
+      });
+    return $data;
+}
+
   getUser(): Observable<User | null> {
-    const $data = this.http.get(this.apiUrl + '/users/current')
+    const $data = this.http.get(this.apiUrl + 'users/current')
       .pipe(
         map((resp: any) => resp.data)
       );
@@ -53,13 +55,13 @@ export class UserService {
   // }
 
   private get usersApi(): string {
-    return this.apiUrl + '/users';
+    return this.apiUrl + 'users';
   }
 
   private handleError = (errorResp: any): Promise<any> => {
     // TODO: don't propagete errors, e.g. post user...
     const error = errorResp.error ? errorResp.error.message : errorResp.statusText || 'An error ocurred';
-    // this.notifyService.error(error);
+    this.notifications.error(error);
     return Promise.reject(error);
   }
 }

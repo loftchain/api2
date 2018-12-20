@@ -2,13 +2,17 @@ import {Inject, Injectable} from '@angular/core';
 import {ApiUrl} from '../../user/api-url';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {NotificationsService} from 'angular2-notifications';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditTransactionService {
 
-  constructor(@Inject(ApiUrl) private apiUrl: string, private http: HttpClient) {}
+  constructor(
+    @Inject(ApiUrl) private apiUrl: string,
+    private http: HttpClient,
+  ) {}
 
   find(id: number): Observable<any> {
     return this.http.get<any>(this.apiUrl + 'transactions/' + id);

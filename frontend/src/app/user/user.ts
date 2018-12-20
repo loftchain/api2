@@ -2,8 +2,9 @@ import { Resource, ResourceWithoutId } from './resourse.model';
 
 interface UserFields {
   email: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  password: string;
+  createdAt?: string;
 }
 
 export interface User extends Resource, UserFields {}

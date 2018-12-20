@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {catchError, map} from 'rxjs/operators';
 import {UserStore} from './user.store';
+import {NotificationsService} from 'angular2-notifications';
 
 @Injectable()
 export class LoginService {
@@ -15,7 +16,8 @@ export class LoginService {
     private tokenStorage: TokenStorage,
     private http: HttpClient,
     private userStore: UserStore,
-    private router: Router
+    private router: Router,
+    private notifications: NotificationsService
   ) {
     this.isLoggedIn = tokenStorage.token !== undefined;
   }
@@ -24,14 +26,14 @@ export class LoginService {
     this.http
       .post(this.loginApi, {email: email, password: password})
       .pipe(
-        map((resp: any) => resp.data),
+        map((resp: any) => resp),
         catchError(this.handleError)
       )
       .subscribe((resp: any) => {
         this.isLoggedIn = true;
         this.tokenStorage.set(resp.token);
         this.userStore.setUser(resp.user);
-        // this.notifyService.success('logged in');
+        this.notifications.success('logged in');
         this.router.navigate(['/welcome']);
       });
   }
@@ -47,12 +49,12 @@ export class LoginService {
   }
 
   private get loginApi(): string {
-    return this.apiUrl + '/auth';
+    return this.apiUrl + 'auth';
   }
 
   private handleError = (errorResp: any): Promise<any> => {
     const error = errorResp.error ? errorResp.error.message : errorResp.statusText || 'An error ocurred';
-    // this.notifyService.error(error);
+    this.notifications.error(error);
     return Promise.reject(error);
   }
 }
