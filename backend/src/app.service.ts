@@ -25,7 +25,7 @@ export class AppService {
         Welcome to the loftchain REST-API!
       </h1>
       <p>
-        <b><a href="/api">To the API Docs.</a></b>
+        <b><a href="/api/loftchain">To the API Docs.</a></b>
       </p>
       <p>Build-ID: BUILD_ID</p>
     </body>

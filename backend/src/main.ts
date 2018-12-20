@@ -21,7 +21,7 @@ async function bootstrap() {
     .addTag('Users')
     .build();
   const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('/api/loftchain', app, document);
 
   await app.listen(3000);
 }
