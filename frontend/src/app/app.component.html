@@ -6,6 +6,7 @@
       <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
       <main>
         <router-outlet></router-outlet>
+        <simple-notifications [options]="options"></simple-notifications>
       </main>
     </mat-sidenav-content>
 </mat-sidenav-container>

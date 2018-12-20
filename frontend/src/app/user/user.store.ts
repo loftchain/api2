@@ -10,10 +10,11 @@ export class UserStore {
   constructor(private userService: UserService) {
     this._user = new BehaviorSubject({
       email: '',
-      firstName: '',
-      lastName: '',
+      name: '',
+      password: '',
       id: -1
     });
+
     this.userService.getUser().subscribe(user => {
       if (user) {
         this.setUser(user);

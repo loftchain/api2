@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AddTransactionService} from './add-transaction.service';
 import {Router} from '@angular/router';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-add-transaction',
@@ -34,7 +35,11 @@ export class AddTransactionComponent implements OnInit {
     wallets: []
   };
 
-  constructor(private addTransactionService: AddTransactionService, private router: Router) { }
+  constructor(
+    private addTransactionService: AddTransactionService,
+    private router: Router,
+    private notifications: NotificationsService
+  ) { }
 
   ngOnInit() {
     this.getCustomers();
@@ -43,8 +48,8 @@ export class AddTransactionComponent implements OnInit {
   createTransaction() {
     this.addTransactionService.create(this.newTransaction)
       .subscribe(data => {
-        console.log(data);
         this.router.navigate(['transaction']);
+        this.notifications.info('transaction was successfully created');
       });
   }
 

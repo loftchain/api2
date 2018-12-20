@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Pair } from '../pair';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditCurrencyService } from './edit-currency.service';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-edit-currency',
@@ -23,7 +24,12 @@ export class EditCurrencyComponent implements OnInit {
 
   private id: any;
 
-  constructor(private route: ActivatedRoute, private editCurrencyService: EditCurrencyService, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private editCurrencyService: EditCurrencyService,
+    private router: Router,
+    private notifications: NotificationsService
+  ) { }
 
   ngOnInit() {
     this.findCurrency();
@@ -41,6 +47,9 @@ export class EditCurrencyComponent implements OnInit {
 
   updateCurrency() {
     this.editCurrencyService.update(this.id, this.currency)
-      .subscribe(data => this.router.navigate(['currencies']));
+      .subscribe(data => {
+        this.router.navigate(['currencies']);
+        this.notifications.info('currency information was successfully updated');
+      });
   }
 }

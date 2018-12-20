@@ -1,7 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
-import {TransactionService} from './transaction.service';
-import {DeleteService} from '../delete/delete.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { TransactionService } from './transaction.service';
+import { DeleteService } from '../delete/delete.service';
 
 @Component({
   selector: 'app-transaction',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EditTransactionService} from './edit-transaction.service';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -23,7 +24,12 @@ export class EditTransactionComponent implements OnInit {
     {value: 'BTC', viewValue: 'BTC'}
   ];
 
-  constructor(private route: ActivatedRoute, private editTransactionService: EditTransactionService, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private editTransactionService: EditTransactionService,
+    private router: Router,
+    private notifications: NotificationsService
+  ) { }
 
   ngOnInit() {
     this.findTransaction();
@@ -45,6 +51,9 @@ export class EditTransactionComponent implements OnInit {
 
   updateTransaction() {
     this.editTransactionService.update(this.id, this.transaction)
-      .subscribe(data => this.router.navigate(['transactions']))
+      .subscribe(data => {
+        this.router.navigate(['transactions']);
+        this.notifications.info('transaction was successfully updated');
+      });
   }
 }

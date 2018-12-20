@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EditCustomerService} from './edit-customer.service';
+import {NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-edit-customer',
@@ -18,7 +19,12 @@ export class EditCustomerComponent implements OnInit {
 
   private id: any;
 
-  constructor(private route: ActivatedRoute, private editCustomerService: EditCustomerService, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private editCustomerService: EditCustomerService,
+    private router: Router,
+    private notifications: NotificationsService
+  ) { }
 
   ngOnInit() {
     this.findCustomer();
@@ -36,7 +42,10 @@ export class EditCustomerComponent implements OnInit {
 
   updateCustomer() {
     this.editCustomerService.update(this.id, this.customer)
-      .subscribe(data => this.router.navigate(['customers']));
+      .subscribe(data => {
+        this.router.navigate(['customers']);
+        this.notifications.info('customer information was successfully updated');
+      });
   }
 
 }

@@ -15,6 +15,8 @@ export class WelcomeComponent implements OnInit {
       .subscribe(data => {
         this.user = data;
       });
+
+    this.userService.testAuth().subscribe(data => console.log(data));
   }
 
 }

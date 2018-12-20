@@ -4,15 +4,19 @@ import {Transaction} from '../transaction';
 import {HttpClient} from '@angular/common/http';
 import {Customer} from '../../customer/customer';
 import { ApiUrl } from '../../resource/api-url';
+import {NotificationsService} from 'angular2-notifications';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddTransactionService {
-  constructor(@Inject(ApiUrl) private apiUrl: string, private http: HttpClient) { }
+  constructor(
+    @Inject(ApiUrl) private apiUrl: string,
+    private http: HttpClient
+  ) { }
 
   create(transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.apiUrl + '/transactions', transaction);
+    return this.http.post<Transaction>(this.apiUrl + 'transactions', transaction);
   }
 
   getCustomers(): Observable<Customer[]> {

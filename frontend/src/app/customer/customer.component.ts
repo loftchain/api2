@@ -33,7 +33,6 @@ export class CustomerComponent implements OnInit {
 
   async getCustomers() {
     await this._customerService.getData().subscribe(data => {
-      console.log(data);
       this.customers = data;
       this.customers = new MatTableDataSource(this.customers);
       this.customers.sort = this.sort;
