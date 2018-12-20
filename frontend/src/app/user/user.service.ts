@@ -17,10 +17,6 @@ export class UserService {
     // private resourceService: ResourceService
   ) {}
 
-  testAuth(): Observable<any> {
-    return this.http.get(this.apiUrl + 'auth/test');
-  }
-
   createUser(user: UserWithoutId): Observable<any> {
     const $data = this.http
       .post(this.usersApi, {

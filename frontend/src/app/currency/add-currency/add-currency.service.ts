@@ -11,6 +11,6 @@ export class AddCurrencyService {
   constructor(@Inject(ApiUrl) private apiUrl: string, private http: HttpClient) { }
 
   create(currency): Observable<Currency> {
-    return this.http.post<Currency>(this.apiUrl + 'currency', currency);
+    return this.http.post<Currency>(this.apiUrl + 'currencies', currency);
   }
 }

@@ -12,15 +12,15 @@ export class CustomerService {
   constructor(@Inject(ApiUrl) private apiUrl: string, private http: HttpClient) { }
 
   getData(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.apiUrl + 'customer');
+    return this.http.get<Customer[]>(this.apiUrl + 'customers');
   }
 
   deleteData(id: number): Observable<{}> {
-    return this.http.delete(this.apiUrl + 'customer/' + id);
+    return this.http.delete(this.apiUrl + 'customers/' + id);
   }
 
   create(newCustomer): Observable<Customer> {
-    return this.http.post<Customer>(this.apiUrl + 'customer', newCustomer);
+    return this.http.post<Customer>(this.apiUrl + 'customers', newCustomer);
   }
 
 }

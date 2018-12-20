@@ -20,10 +20,6 @@ export class CustomerComponent implements OnInit {
 
   public columnsToDisplay: string[] = ['id', 'name', 'wallets', 'action'];
   public customers;
-  public pairs: Pair[] = [
-    {value: 'pair1', viewValue: 'ETH'},
-    {value: 'pair2', viewValue: 'BTC'}
-  ];
 
   constructor(private _customerService: CustomerService, private deleteService: DeleteService) { }
 

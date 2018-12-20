@@ -11,7 +11,6 @@ export class LandingComponent implements OnInit {
   constructor(private readonly userService: UserService) { }
 
   ngOnInit() {
-    this.userService.testAuth().subscribe(data => console.log(data));
   }
 
 }

@@ -10,11 +10,12 @@ import {EditCurrencyComponent} from './currency/edit-currency/edit-currency.comp
 import {CustomerComponent} from './customer/customer.component';
 import {AddCustomerComponent} from './customer/add-customer/add-customer.component';
 import {EditCustomerComponent} from './customer/edit-customer/edit-customer.component';
-import {TransactionComponent} from "./transaction/transaction.component";
-import {AddTransactionComponent} from "./transaction/add-transaction/add-transaction.component";
-import {EditTransactionComponent} from "./transaction/edit-transaction/edit-transaction.component";
-import {LandingComponent} from "./landing/landing.component";
-import {AuthGuardService} from "./user/auth-guard.service";
+import {TransactionComponent} from './transaction/transaction.component';
+import {AddTransactionComponent} from './transaction/add-transaction/add-transaction.component';
+import {EditTransactionComponent} from './transaction/edit-transaction/edit-transaction.component';
+import {LandingComponent} from './landing/landing.component';
+import {AuthGuardService} from './user/auth-guard.service';
+import {DeleteComponent} from './delete/delete.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthGuardService] },
@@ -24,12 +25,15 @@ const routes: Routes = [
   { path: 'currencies', component: CurrencyComponent, canActivate: [AuthGuardService] },
   { path: 'currencies/create', component: AddCurrencyComponent, canActivate: [AuthGuardService] },
   { path: 'currencies/edit/:id', component: EditCurrencyComponent, canActivate: [AuthGuardService] },
+  { path: 'currencies/delete', component: DeleteComponent, canActivate: [AuthGuardService] },
   { path: 'customers', component: CustomerComponent, canActivate: [AuthGuardService] },
   { path: 'customers/create', component: AddCustomerComponent, canActivate: [AuthGuardService] },
   { path: 'customers/edit/:id', component: EditCustomerComponent, canActivate: [AuthGuardService] },
+  { path: 'customers/delete', component: DeleteComponent, canActivate: [AuthGuardService] },
   { path: 'transactions', component: TransactionComponent, canActivate: [AuthGuardService] },
   { path: 'transactions/create', component: AddTransactionComponent, canActivate: [AuthGuardService] },
   { path: 'transactions/edit/:id', component: EditTransactionComponent, canActivate: [AuthGuardService] },
+  { path: 'transactions/delete', component: DeleteComponent, canActivate: [AuthGuardService] },
   { path: '**', component: PageNotFoundComponent, canActivate: [AuthGuardService] },
 ];
 

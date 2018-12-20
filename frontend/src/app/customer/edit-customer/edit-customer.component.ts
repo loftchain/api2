@@ -11,10 +11,10 @@ import {NotificationsService} from 'angular2-notifications';
 export class EditCustomerComponent implements OnInit {
   public customer = {
     name: '',
-    currency_eth: 'ETH',
-    wallet_eth: '',
-    currency_btc: 'BTC',
-    wallet_btc: ''
+    currencyEth: 'ETH',
+    walletEth: '',
+    currencyBtc: 'BTC',
+    walletBtc: ''
   };
 
   private id: any;
@@ -35,8 +35,8 @@ export class EditCustomerComponent implements OnInit {
     this.editCustomerService.find(this.id)
       .subscribe(data => {
         this.customer.name = data.name;
-        this.customer.wallet_eth = data.wallet[0].wallet;
-        this.customer.wallet_btc = data.wallet[1].wallet;
+        this.customer.walletEth = data.wallet[0].wallet;
+        this.customer.walletBtc = data.wallet[1].wallet;
       });
   }
 

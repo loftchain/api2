@@ -11,10 +11,10 @@ import {NotificationsService} from 'angular2-notifications';
 export class AddCustomerComponent implements OnInit {
   public newCustomer = {
     name: '',
-    currency_eth: 'ETH',
-    wallet_eth: '',
-    currency_btc: 'BTC',
-    wallet_btc: ''
+    currencyEth: 'ETH',
+    walletEth: '',
+    currencyBtc: 'BTC',
+    walletBtc: ''
   };
 
   constructor(
