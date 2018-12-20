@@ -7,9 +7,10 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from './config/config.module';
 import { AuthModule } from './auth/auth.module';
 import { CustomerModule } from './customer/customer.module';
+import { CurrencyModule } from './currency/currency.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), ConfigModule, UserModule, AuthModule, CustomerModule],
+  imports: [TypeOrmModule.forRoot(), ConfigModule, UserModule, AuthModule, CustomerModule, CurrencyModule],
   controllers: [AppController],
   providers: [AppService],
 })

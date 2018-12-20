@@ -50,12 +50,4 @@ export class AuthController {
             token,
         };
     }
-
-    @Get('test')
-    @UseGuards(AuthGuard())
-    async test(@Request() request) {
-        console.log(request);
-
-        return 'test auth';
-    }
 }

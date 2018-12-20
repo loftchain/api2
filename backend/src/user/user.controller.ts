@@ -45,10 +45,4 @@ export class UserController {
             }
           }
     }
-
-    @Get('test')
-    @UseGuards(AuthGuard())
-    async test() {
-        return 'test';
-    }
 }
