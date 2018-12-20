@@ -1,14 +1,27 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as cors from 'cors';
+
+import { AppModule } from './app.module';
 import { ConfigModule } from './config/config.module';
 import { ConfigService } from './config/config.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const config = app.use(ConfigModule).get(ConfigService);
+  const config = new ConfigService('.env');
 
-  app.use(cors([config.get('FRONT_URL')]));
+  app.use(cors([
+    config.get('FRONT_URL'),
+  ]));
+
+  const options = new DocumentBuilder()
+    .setTitle('api2')
+    .setDescription('api2 loftchain')
+    .setVersion('1.0')
+    .addTag('Users')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('api', app, document);
 
   await app.listen(3000);
 }

@@ -5,7 +5,10 @@ import { EmailValidatorService } from 'src/validation/email/email-validator.serv
 import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
 import { UserDto } from './user.dto';
 import { apiPath } from 'src/api';
+import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { User } from './user.entity';
 
+@ApiUseTags('Users')
 @Controller(apiPath(1, 'users'))
 export class UserController {
     constructor(private readonly userService: UserService,
@@ -13,10 +16,15 @@ export class UserController {
                 private readonly passwordValidatorService: PasswordValidatorService,
         ) {}
 
+    @ApiOperation({title: 'Register new account'})
+    @ApiResponse({
+        status: 200,
+        description: 'Credentials are ok, returning new user data.',
+        type: User,
+      })
+    @ApiResponse({status: 400, description: 'Email or password are not valid!'})
     @Post()
     async create(@Body('user') requestBody: UserDto) {
-        console.log(requestBody);
-
         const emailValidator = await this.emailValidatorService.validateEmail(requestBody.email);
         if (!emailValidator.isValid) {
             throw new BadRequestException('Invalid email!');

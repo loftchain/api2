@@ -1,5 +1,6 @@
 import { Controller, Body, Post, Get, UseGuards, BadRequestException, Request } from '@nestjs/common';
 import {classToPlain} from 'class-transformer';
+import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -10,6 +11,7 @@ import { PasswordValidatorService } from 'src/validation/password/passwrod-valid
 import { PasswordCryptographerService } from './password-cryptographer/password-cryptographer';
 import { apiPath } from 'src/api';
 
+@ApiUseTags('Users')
 @Controller(apiPath(1, 'auth'))
 export class AuthController {
     constructor(private readonly authService: AuthService,
@@ -19,6 +21,12 @@ export class AuthController {
                 private readonly passwordCryptographerService: PasswordCryptographerService,
          ) {}
 
+    @ApiOperation({title: 'Authorize'})
+    @ApiResponse({
+           status: 200,
+           description: 'Credentials are ok, returning JWT.',
+    })
+    @ApiResponse({status: 400, description: 'The email or password is incorrect!'})
     @Post()
     async login(@Body() req: AuthDto) {
         const emailValidator = await this.emailValidatorService.validateEmail(req.email);

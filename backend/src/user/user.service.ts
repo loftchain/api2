@@ -12,7 +12,7 @@ export class UserService {
                 private readonly passwordCryptographerService: PasswordCryptographerService,
     ) {}
 
-    async create(userDto: UserDto) {
+    async create(userDto: UserDto): Promise<User> {
         const existingUser = await this.userRepository.findOne({email: userDto.email});
         if (existingUser) {
             throw new Error('User already exists');
