@@ -5,9 +5,9 @@ import { JwtStrategy } from './jwt.strategy';
 import { UserModule } from '../user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller';
-import { UserService } from 'src/user/user.service';
-import { EmailValidatorService } from 'src/validation/email/email-validator.service';
-import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
+import { UserService } from '../user/user.service';
+import { EmailValidatorService } from '../validation/email/email-validator.service';
+import { PasswordValidatorService } from '../validation/password/passwrod-validator.service';
 import { PasswordCryptographerService } from './password-cryptographer/password-cryptographer';
 
 @Module({

@@ -5,11 +5,11 @@ import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthDto } from './auth.dto';
-import { UserService } from 'src/user/user.service';
-import { EmailValidatorService } from 'src/validation/email/email-validator.service';
-import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
+import { UserService } from '../user/user.service';
+import { EmailValidatorService } from '../validation/email/email-validator.service';
+import { PasswordValidatorService } from '../validation/password/passwrod-validator.service';
 import { PasswordCryptographerService } from './password-cryptographer/password-cryptographer';
-import { apiPath } from 'src/api';
+import { apiPath } from '../api';
 
 @ApiUseTags('Users')
 @Controller(apiPath(1, 'auth'))
