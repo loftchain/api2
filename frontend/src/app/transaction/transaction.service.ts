@@ -15,11 +15,11 @@ export class TransactionService {
   ) { }
 
   getData(): Observable<Transaction> {
-    return this.http.get<Transaction>(this.apiUrl + 'transaction');
+    return this.http.get<Transaction>(this.apiUrl + 'transactions');
   }
 
   deleteData(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.apiUrl + 'transaction/' + id);
+    return this.http.delete<boolean>(this.apiUrl + 'transactions/' + id);
   }
 
 }
