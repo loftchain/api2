@@ -15,8 +15,8 @@ import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { TransactionService } from './transaction.service';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 
-@ApiUseTags('Transaction')
-@Controller(apiPath(1, 'transaction'))
+@ApiUseTags('Transactions')
+@Controller(apiPath(1, 'transactions'))
 export class TransactionController {
     constructor(private readonly transactionService: TransactionService) {}
 

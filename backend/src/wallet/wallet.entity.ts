@@ -13,7 +13,7 @@ export class Wallet {
     @Column({length: 255, nullable: true})
     wallet: string;
 
-    @Column('timestamp')
+    @Column({type: 'timestamp', nullable: true})
     date: string;
 
     @ManyToOne(type => Customer, customer => customer.wallet, {
