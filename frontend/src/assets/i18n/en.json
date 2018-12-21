@@ -50,5 +50,27 @@
     "title": "Edit currency data",
     "save": "Save",
     "cancel": "Cancel"
+  },
+
+  "transactions": {
+    "customerId": "Customer ID",
+    "customerName": "Customer Name",
+    "currency": "Currency",
+    "amount": "Amount",
+    "from": "From",
+    "date": "Date",
+    "status": "Status"
+  },
+
+  "createTx": {
+    "title": "Add new transaction",
+    "add": "Add",
+    "cancel": "Cancel"
+  },
+
+  "editTx": {
+    "title": "Edit transaction data",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

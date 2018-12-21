@@ -1,5 +1,5 @@
 <div class="changing-form mat-elevation-z8">
-  <h2 class="changing-form__title">Update transaction</h2>
+  <h2 class="changing-form__title">{{ 'editTx.title' | translate }}</h2>
 
   <mat-form-field>
     <mat-select [(ngModel)]="transaction.currency" placeholder="Currency">
@@ -36,7 +36,7 @@
   </mat-form-field>
 
   <div class="changing-form__button-group">
-    <button (click)="updateTransaction()" mat-raised-button color="primary">Update</button>
-    <button routerLink="/transactions" mat-raised-button color="warn">Cancel</button>
+    <button (click)="updateTransaction()" mat-raised-button color="primary">{{ 'editTx.save' | translate }}</button>
+    <button routerLink="/transactions" mat-raised-button color="warn">{{ 'editTx.cancel' | translate }}</button>
   </div>
 </div>
