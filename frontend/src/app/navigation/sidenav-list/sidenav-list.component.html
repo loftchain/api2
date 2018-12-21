@@ -30,8 +30,8 @@
       <mat-icon>language</mat-icon>
       <span class="nav__caption">Language</span>
       <div class="dropdown-content">
-        <a>English</a>
-        <a>Russian</a>
+        <a (click)="onLanguageChange('en')">English</a>
+        <a (click)="onLanguageChange('ru')">Russian</a>
       </div>
     </div>
   </mat-list-item>

@@ -76,7 +76,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
       }
     })
   ],
-  exports: [TranslateModule],
+  exports: [ TranslateModule ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

@@ -8,6 +8,7 @@ import {LoginService} from '../../user/login.service';
 })
 export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter();
+  @Output() languageToggle = new EventEmitter<string>();
   constructor(private readonly loginService: LoginService) { }
 
   ngOnInit() {
@@ -26,4 +27,7 @@ export class SidenavListComponent implements OnInit {
     this.onClose();
   }
 
+  onLanguageChange(language) {
+    this.languageToggle.emit(language);
+  }
 }

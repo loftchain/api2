@@ -11,12 +11,12 @@ import {ApiUrl} from './api-url';
 import { LoginService } from './login.service';
 import {UserService} from './user.service';
 import {UserStore} from './user.store';
-
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, MatButtonModule, MatInputModule, MatCardModule, HttpClientModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatInputModule, MatCardModule, HttpClientModule, TranslateModule],
   declarations: [SignupComponent, LoginComponent],
-  exports: [SignupComponent, LoginComponent]
+  exports: [SignupComponent, LoginComponent ]
 })
 export class UserModule {
   static forRoot(apiUrl: string) {

@@ -1,6 +1,6 @@
 <section class="signup">
   <h2>
-  Sign Up
+    {{ 'navigation.signup' | translate }}
   </h2>
 
   <mat-form-field class="half-width">
@@ -27,5 +27,5 @@
     <mat-error *ngIf="passwordInput.hasError('pattern')">Password must contain at least one uppercase/lowercase letters, one number and one special char</mat-error>
   </mat-form-field>
 
-  <button class="submit" [disabled]="email.invalid || passwordInput.invalid" (click)="doSignUp()" color="primary" mat-raised-button>Sign Up</button>
+  <button class="submit" [disabled]="email.invalid || passwordInput.invalid" (click)="doSignUp()" color="primary" mat-raised-button>{{ 'navigation.signup' | translate }}</button>
 </section>

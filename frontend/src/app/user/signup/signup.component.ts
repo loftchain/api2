@@ -5,7 +5,6 @@ import {UserService} from '../user.service';
 import {LoginService} from '../login.service';
 import {UserStore} from '../user.store';
 import {NotificationsService} from 'angular2-notifications';
-import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',
@@ -35,7 +34,7 @@ export class SignupComponent implements OnInit {
     this.userService.createUser(this.newUser).subscribe(user => {
       this.notifications.success('User created');
       this.loginService.logIn(user.email, this.newUser.password);
-      // this.userStore.setUser(user);
+      this.userStore.setUser(user);
     });
   }
 }

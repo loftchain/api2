@@ -17,6 +17,10 @@
     "signup": "Sign up"
   },
 
+  "login": {
+    "login": "Login"
+  },
+
   "customers": {
     "name": "Name",
     "wallets": "Wallets"

@@ -1,6 +1,6 @@
 <section class="login">
   <h2>
-    Login
+    {{ 'navigation.login' | translate }}
   </h2>
   <mat-form-field class="full-width">
     <input matInput [(ngModel)]="user.email" placeholder="Email" type="email" #email="ngModel"
@@ -19,7 +19,7 @@
   </mat-form-field>
 
     <button [disabled]="email.invalid || passwordInput.invalid" class="submit" type="submit" color="primary" mat-raised-button (click)="doLogin()">
-      Login
+      {{ 'navigation.login' | translate }}
     </button>
 </section>
 
