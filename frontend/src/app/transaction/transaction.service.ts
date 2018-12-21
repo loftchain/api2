@@ -18,8 +18,4 @@ export class TransactionService {
     return this.http.get<Transaction>(this.apiUrl + 'transactions');
   }
 
-  deleteData(id: number): Observable<boolean> {
-    return this.http.delete<boolean>(this.apiUrl + 'transactions/' + id);
-  }
-
 }

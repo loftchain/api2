@@ -48,7 +48,6 @@ export class AddTransactionComponent implements OnInit {
   createTransaction() {
     this.addTransactionService.create(this.newTransaction)
       .subscribe(data => {
-        console.log(data);
         this.router.navigate(['transactions']);
         this.notifications.info('transaction was successfully created');
       });
