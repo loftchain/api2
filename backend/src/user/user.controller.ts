@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Body, UseGuards, BadRequestException, ForbiddenException, InternalServerErrorException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
-import { EmailValidatorService } from 'src/validation/email/email-validator.service';
-import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
+import { EmailValidatorService } from '../validation/email/email-validator.service';
+import { PasswordValidatorService } from '../validation/password/passwrod-validator.service';
 import { UserDto } from './user.dto';
-import { apiPath } from 'src/api';
+import { apiPath } from '../api';
 import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { User } from './user.entity';
 

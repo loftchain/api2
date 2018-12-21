@@ -4,7 +4,7 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { PayloadInterface } from 'src/auth/payload.interface';
 import { UserDto } from './user.dto';
-import { PasswordCryptographerService } from 'src/auth/password-cryptographer/password-cryptographer';
+import { PasswordCryptographerService } from '../auth/password-cryptographer/password-cryptographer';
 
 @Injectable()
 export class UserService {

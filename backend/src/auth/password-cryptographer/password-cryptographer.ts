@@ -1,5 +1,5 @@
-import * as bcrypt from 'bcrypt-nodejs';
 import { Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcrypt-nodejs';
 
 @Injectable()
 export class PasswordCryptographerService {

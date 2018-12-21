@@ -4,9 +4,9 @@ import { User } from './user.entity';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { PassportModule } from '@nestjs/passport';
-import { EmailValidatorService } from 'src/validation/email/email-validator.service';
-import { PasswordValidatorService } from 'src/validation/password/passwrod-validator.service';
-import { PasswordCryptographerService } from 'src/auth/password-cryptographer/password-cryptographer';
+import { EmailValidatorService } from '../validation/email/email-validator.service';
+import { PasswordValidatorService } from '../validation/password/passwrod-validator.service';
+import { PasswordCryptographerService } from '../auth/password-cryptographer/password-cryptographer';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), PassportModule.register({ defaultStrategy: 'jwt' })],
