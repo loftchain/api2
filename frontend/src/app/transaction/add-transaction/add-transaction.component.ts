@@ -11,7 +11,7 @@ import {NotificationsService} from 'angular2-notifications';
 export class AddTransactionComponent implements OnInit {
   public newTransaction = {
     currency: '',
-    tx_id: '',
+    txId: '',
     amount: 0,
     date: '',
     from: '',
@@ -48,7 +48,8 @@ export class AddTransactionComponent implements OnInit {
   createTransaction() {
     this.addTransactionService.create(this.newTransaction)
       .subscribe(data => {
-        this.router.navigate(['transaction']);
+        console.log(data);
+        this.router.navigate(['transactions']);
         this.notifications.info('transaction was successfully created');
       });
   }

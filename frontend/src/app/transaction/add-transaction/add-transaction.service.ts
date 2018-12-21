@@ -4,7 +4,6 @@ import {Transaction} from '../transaction';
 import {HttpClient} from '@angular/common/http';
 import {Customer} from '../../customer/customer';
 import { ApiUrl } from '../../resource/api-url';
-import {NotificationsService} from 'angular2-notifications';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +15,10 @@ export class AddTransactionService {
   ) { }
 
   create(transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(this.apiUrl + 'transactions', transaction);
+    return this.http.post<Transaction>(this.apiUrl + 'transaction', transaction);
   }
 
   getCustomers(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.apiUrl + '/customers');
+    return this.http.get<Customer[]>(this.apiUrl + 'customers');
   }
 }

@@ -10,7 +10,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [(ngModel)]="transaction.tx_id" placeholder="Transaction_ID">
+    <input matInput [(ngModel)]="transaction.txId" placeholder="Transaction_ID">
   </mat-form-field>
 
   <mat-form-field>
@@ -25,6 +25,14 @@
     <input [(ngModel)]="transaction.date" matInput [matDatepicker]="pickerUpdate" placeholder="Choose a date">
     <mat-datepicker-toggle matSuffix [for]="pickerUpdate"></mat-datepicker-toggle>
     <mat-datepicker touchUi #pickerUpdate></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select [(ngModel)]="transaction.status" placeholder="Status">
+      <mat-option *ngFor="let status of statuses" [value]="status.value">
+        {{status.viewValue}}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <div class="changing-form__button-group">

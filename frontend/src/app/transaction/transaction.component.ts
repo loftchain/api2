@@ -17,7 +17,7 @@ export class TransactionComponent implements OnInit {
   public filteredCurrency;
   public filteredStatus;
   public filteredName = '';
-  public columnsToDisplay: string[] = ['id', 'customer', 'currency', 'tx_id', 'from', 'amount', 'date', 'status', 'action'];
+  public columnsToDisplay: string[] = ['id', 'customer', 'currency', 'txId', 'from', 'amount', 'date', 'status', 'action'];
   public currencyPairs = [
     {value: 'ETH', viewValue: 'ETH'},
     {value: 'BTC', viewValue: 'BTC'}

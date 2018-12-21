@@ -17,13 +17,13 @@
       <td mat-cell *matCellDef="let transaction">{{transaction.currency}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="tx_id">
+    <ng-container matColumnDef="txId">
       <th mat-header-cell *matHeaderCellDef>txId</th>
       <td mat-cell *matCellDef="let transaction">
-        <a *ngIf="transaction.currency === 'ETH'" [href]="'https://etherscan.io/tx/' + transaction.tx_id" target="_blank">
+        <a *ngIf="transaction.currency === 'ETH'" [href]="'https://etherscan.io/tx/' + transaction.txId" target="_blank">
           etherscan.io
         </a>
-        <a *ngIf="transaction.currency === 'BTC'" [href]="'https://www.blockchain.com/btc/tx/' + transaction.tx_id" target="_blank">
+        <a *ngIf="transaction.currency === 'BTC'" [href]="'https://www.blockchain.com/btc/tx/' + transaction.txId" target="_blank">
           blockchain.info
         </a>
       </td>
@@ -59,7 +59,7 @@
         <button mat-icon-button routerLink="edit/{{transaction.id}}">
           <mat-icon>edit</mat-icon>
         </button>
-        <button (click)="sendItem(transaction, 'transaction', 'transaction')" routerLink="delete" mat-icon-button color="warn">
+        <button (click)="sendItem(transaction, 'transaction', 'transactions')" routerLink="delete" mat-icon-button color="warn">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
