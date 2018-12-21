@@ -1,7 +1,7 @@
 import {Column, Entity, OneToMany, PrimaryGeneratedColumn, JoinColumn, JoinTable, RelationCount} from 'typeorm';
 import { ApiModelProperty } from '@nestjs/swagger';
 
-// import {Transaction} from '../transaction/transaction.entity';
+import {Transaction} from '../transaction/transaction.entity';
 import {Wallet} from '../wallet/wallet.entity';
 
 @Entity()
@@ -18,8 +18,8 @@ export class Customer {
     @Column('timestamp')
     date: string;
 
-    // @OneToMany(type => Transaction, transaction => transaction.customer)
-    // transaction: Transaction[];
+    @OneToMany(type => Transaction, transaction => transaction.customer)
+    transaction: Transaction[];
 
     @ApiModelProperty()
     @OneToMany(type => Wallet, wallet => wallet.customer, {

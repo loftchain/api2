@@ -8,9 +8,10 @@ import { ConfigModule } from './config/config.module';
 import { AuthModule } from './auth/auth.module';
 import { CustomerModule } from './customer/customer.module';
 import { CurrencyModule } from './currency/currency.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), ConfigModule, UserModule, AuthModule, CustomerModule, CurrencyModule],
+  imports: [TypeOrmModule.forRoot(), ConfigModule, UserModule, AuthModule, CustomerModule, CurrencyModule, TransactionModule],
   controllers: [AppController],
   providers: [AppService],
 })
