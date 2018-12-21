@@ -4,6 +4,7 @@ export interface Transaction {
   date: string;
   from: string;
   status: string;
-  tx_id: string;
+  txId: string;
   id: number;
+  customer?: number;
 }

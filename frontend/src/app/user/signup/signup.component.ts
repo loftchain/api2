@@ -34,7 +34,7 @@ export class SignupComponent implements OnInit {
     this.userService.createUser(this.newUser).subscribe(user => {
       this.notifications.success('User created');
       this.loginService.logIn(user.email, this.newUser.password);
-      // this.userStore.setUser(user);
+      this.userStore.setUser(user);
     });
   }
 }

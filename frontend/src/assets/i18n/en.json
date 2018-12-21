@@ -1,0 +1,80 @@
+{
+  "landing": {
+    "title": "Fully functional REST-API",
+    "subtitle": "Developed by LoftChain"
+  },
+
+  "navigation": {
+    "signup": "Signup",
+    "login": "Login",
+    "customers": "Customers",
+    "transactions": "Transactions",
+    "currencies": "Currencies",
+    "logout": "Logout"
+  },
+
+  "signup": {
+    "signup": "Sign up"
+  },
+
+  "login": {
+    "login": "Login"
+  },
+
+  "customers": {
+    "name": "Name",
+    "wallets": "Wallets"
+  },
+
+  "addCustomer": {
+    "title": "Add new customer",
+    "add": "Add",
+    "cancel": "Cancel"
+  },
+
+  "editCustomer": {
+    "title": "Edit customer data",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+
+  "currencies": {
+    "pair": "Pair",
+    "price": "Price",
+    "date": "Date"
+  },
+
+  "createCurrency": {
+    "title": "Add new currency",
+    "add": "Add",
+    "cancel": "Cancel"
+  },
+
+  "editCurrency": {
+    "title": "Edit currency data",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+
+  "transactions": {
+    "customerId": "Customer ID",
+    "customerName": "Customer Name",
+    "currency": "Currency",
+    "amount": "Amount",
+    "from": "From",
+    "date": "Date",
+    "status": "Status"
+  },
+
+  "createTx": {
+    "title": "Add new transaction",
+    "add": "Add",
+    "cancel": "Cancel"
+  },
+
+  "editTx": {
+    "title": "Edit transaction data",
+    "save": "Save",
+    "cancel": "Cancel"
+  }
+}

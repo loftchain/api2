@@ -11,13 +11,17 @@ import {NotificationsService} from 'angular2-notifications';
 export class EditTransactionComponent implements OnInit {
   public transaction = {
     currency: '',
-    tx_id: '',
+    txId: '',
     amount: 0,
     date: '',
     from: '',
     status: '',
     customer: 0
   };
+  public statuses = [
+    {value: 'true', viewValue: 'true'},
+    {value: 'false', viewValue: 'false'}
+  ];
   private id: any;
   public currencies = [
     {value: 'ETH', viewValue: 'ETH'},
@@ -37,11 +41,12 @@ export class EditTransactionComponent implements OnInit {
 
   findTransaction() {
     this.id = +this.route.snapshot.paramMap.get('id');
+    console.log(this.id);
     this.editTransactionService.find(this.id)
       .subscribe(data => {
         this.transaction.customer = data.customer.id;
         this.transaction.currency = data.currency;
-        this.transaction.tx_id = data.tx_id;
+        this.transaction.txId = data.txId;
         this.transaction.from = data.from;
         this.transaction.amount = data.amount;
         this.transaction.date = data.date;

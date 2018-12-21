@@ -1,0 +1,80 @@
+{
+  "landing": {
+    "title": "Полностью функциональный REST-API",
+    "subtitle": "Разработан LoftChain"
+  },
+
+  "navigation": {
+    "signup": "Регистрация",
+    "login": "Логин",
+    "customers": "Клиенты",
+    "transactions": "Транзакции",
+    "currencies": "Курсы валют",
+    "logout": "Выход"
+  },
+
+  "signup": {
+    "signup": "Регистрация"
+  },
+
+  "login": {
+    "login": "Логин"
+  },
+
+  "customers": {
+    "name": "Имя",
+    "wallets": "Кошельки"
+  },
+
+  "addCustomer": {
+    "title": "Добавить нового клиента",
+    "add": "Добавить",
+    "cancel": "Отмена"
+  },
+
+  "editCustomer": {
+    "title": "Редактировать данные клиента",
+    "save": "Сохранить",
+    "cancel": "Отмена"
+  },
+
+  "currencies": {
+    "pair": "Пара",
+    "price": "Цена",
+    "date": "Дата"
+  },
+
+  "createCurrency": {
+    "title": "Добавить новую валюту",
+    "add": "Добавить",
+    "cancel": "Отмена"
+  },
+
+  "editCurrency": {
+    "title": "Редактировать данные валюты",
+    "save": "Сохранить",
+    "cancel": "Отмена"
+  },
+
+  "transactions": {
+    "customerId": "ID Клиента",
+    "customerName": "Имя Клиента",
+    "currency": "Валюта",
+    "amount": "Количество",
+    "from": "Откуда",
+    "date": "Дата",
+    "status": "Статус"
+  },
+
+  "createTx": {
+    "title": "Добавить новую транзакцию",
+    "add": "Добавить",
+    "cancel": "Отмена"
+  },
+
+  "editTx": {
+    "title": "Редактировать данные транзакции",
+    "save": "Сохранить",
+    "cancel": "Отмена"
+  }
+}

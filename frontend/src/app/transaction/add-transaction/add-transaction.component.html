@@ -1,5 +1,5 @@
 <div class="changing-form mat-elevation-z8">
-  <h2 class="changing-form__title">Create new transaction</h2>
+  <h2 class="changing-form__title">{{ 'createTx.title' | translate }}</h2>
 
   <mat-form-field>
     <mat-select [(ngModel)]="newTransaction.customer" placeholder="Customer ID">
@@ -18,7 +18,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput [(ngModel)]="newTransaction.tx_id" placeholder="Transaction_ID">
+    <input matInput [(ngModel)]="newTransaction.txId" placeholder="Transaction_ID">
   </mat-form-field>
 
   <mat-form-field>
@@ -45,8 +45,8 @@
 
 
   <div class="changing-form__button-group">
-    <button (click)="createTransaction()" mat-raised-button color="primary">Add</button>
-    <button routerLink="/transactions" mat-raised-button color="warn">Cancel</button>
+    <button (click)="createTransaction()" mat-raised-button color="primary">{{ 'createTx.add' | translate }}</button>
+    <button routerLink="/transactions" mat-raised-button color="warn">{{ 'createTx.cancel' | translate }}</button>
   </div>
 </div>
 

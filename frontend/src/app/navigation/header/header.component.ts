@@ -8,7 +8,7 @@ import {LoginService} from '../../user/login.service';
 })
 export class HeaderComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<void>();
-
+  @Output() languageToggle = new EventEmitter<string>();
   constructor(private readonly loginService: LoginService) {
   }
 
@@ -25,5 +25,9 @@ export class HeaderComponent implements OnInit {
 
   onToggleSidenav() {
     this.sidenavToggle.emit();
+  }
+
+  onLanguageChange(language) {
+    this.languageToggle.emit(language);
   }
 }

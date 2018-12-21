@@ -1,5 +1,5 @@
 <div class="changing-form mat-elevation-z8">
-  <h2 class="changing-form__title">Edit customer data</h2>
+  <h2 class="changing-form__title">{{ 'editCustomer.title' | translate }}</h2>
   <mat-form-field>
     <input matInput [(ngModel)]="customer.name" placeholder="Customer name">
   </mat-form-field>
@@ -14,8 +14,8 @@
 
 
   <div class="changing-form__button-group">
-    <button (click)="updateCustomer()" mat-raised-button color="primary">Save</button>
-    <button routerLink="/customers" mat-raised-button color="warn">Cancel</button>
+    <button (click)="updateCustomer()" mat-raised-button color="primary">{{ 'editCustomer.save' | translate }}</button>
+    <button routerLink="/customers" mat-raised-button color="warn">{{ 'editCustomer.cancel' | translate }}</button>
   </div>
 </div>
 

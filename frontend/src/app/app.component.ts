@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,13 @@ export class AppComponent implements OnInit {
     timeOut: 5000,
     animate: 'scale'
   };
-  constructor() {}
+  constructor(private translate: TranslateService) {
+    translate.setDefaultLang('en');
+  }
   ngOnInit() {
+  }
+
+  useLanguage(language: string) {
+    this.translate.use(language);
   }
 }
