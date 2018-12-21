@@ -41,7 +41,6 @@ export class EditTransactionComponent implements OnInit {
 
   findTransaction() {
     this.id = +this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
     this.editTransactionService.find(this.id)
       .subscribe(data => {
         this.transaction.customer = data.customer.id;

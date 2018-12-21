@@ -14,10 +14,10 @@ export class EditTransactionService {
   ) {}
 
   find(id: number): Observable<any> {
-    return this.http.get<any>(this.apiUrl + 'transaction/' + id);
+    return this.http.get<any>(this.apiUrl + 'transactions/' + id);
   }
 
   update(id: number, transaction): Observable<any> {
-    return this.http.put<any>(this.apiUrl + 'transaction/' + id, transaction);
+    return this.http.put<any>(this.apiUrl + 'transactions/' + id, transaction);
   }
 }
