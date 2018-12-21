@@ -1,0 +1,58 @@
+{
+  "landing": {
+    "title": "Полностью функциональный REST-API",
+    "subtitle": "Разработан LoftChain"
+  },
+
+  "navigation": {
+    "signup": "Регистрация",
+    "login": "Логин",
+    "customers": "Пользователи",
+    "transactions": "Транзакции",
+    "currencies": "Курсы валют",
+    "logout": "Выход"
+  },
+
+  "signup": {
+    "signup": "Sign up"
+  },
+
+  "login": {
+    "login": "login"
+  },
+
+  "customers": {
+    "name": "Имя",
+    "wallets": "Кошельки"
+  },
+
+  "addCustomer": {
+    "title": "Добавить нового пользователя",
+    "add": "Добавить",
+    "cancel": "Отмена"
+  },
+
+  "editCustomer": {
+    "title": "Редактировать данные пользователя",
+    "save": "Сохранить",
+    "cancel": "Отмена"
+  },
+
+  "currencies": {
+    "pair": "Пара",
+    "price": "Цена",
+    "date": "Дата"
+  },
+
+  "createCurrency": {
+    "title": "Добавить новую валюту",
+    "add": "Добавить",
+    "cancel": "Отмена"
+  },
+
+  "editCurrency": {
+    "title": "Редактировать данные валюты",
+    "save": "Сохранить",
+    "cancel": "Отмена"
+  }
+}

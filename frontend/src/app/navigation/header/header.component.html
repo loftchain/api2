@@ -12,12 +12,12 @@
     <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/transactions" routerLinkActive="nav__item--active">{{ 'navigation.transactions' | translate }}</a></li>
     <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/currencies" routerLinkActive="nav__item--active">{{ 'navigation.currencies' | translate }}</a></li>
     <li *ngIf="loggedIn()" class="nav__item"><a class="logout" (click)="onLogout()">{{ 'navigation.logout' | translate }}</a></li>
-    <li *ngIf="loggedIn()" class="nav__item nav__item--language">
+    <li class="nav__item nav__item--language">
       <div class="dropdown">
         <span>Language</span>
         <div class="dropdown-content">
-          <a>English</a>
-          <a>Russian</a>
+          <a (click)="onLanguageChange('en')">English</a>
+          <a (click)="onLanguageChange('ru')">Russian</a>
         </div>
       </div>
     </li>
