@@ -20,6 +20,6 @@ export class User {
   password: string;
 
   @ApiModelProperty()
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   createdAt: string;
 }

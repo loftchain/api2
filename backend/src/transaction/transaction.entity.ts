@@ -33,7 +33,7 @@ export class Transaction {
     status: string;
 
     @ApiModelProperty()
-    @Column('timestamp')
+    @Column({type: 'timestamp', nullable: true})
     createdAt: string;
 
     @ApiModelProperty()
