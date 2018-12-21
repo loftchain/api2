@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClient } from '@angular/common/http';
 import { AuthHeaderInterceptor } from './user/auth.http.interceptor';
 import { UserModule } from './user/user.module';
 import { environment } from '../environments/environment';
@@ -35,6 +35,8 @@ import { TransactionService } from './transaction/transaction.service';
 import { LandingComponent } from './landing/landing.component';
 import { AuthGuardService } from './user/auth-guard.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -65,8 +67,16 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     HttpClientModule,
     SimpleNotificationsModule.forRoot(),
     UserModule.forRoot(environment.api),
-    ResourceModule.forRoot(environment.api)
+    ResourceModule.forRoot(environment.api),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
+  exports: [TranslateModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
@@ -86,3 +96,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// required for AOT compilation
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

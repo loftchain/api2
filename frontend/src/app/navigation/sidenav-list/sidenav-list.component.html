@@ -1,28 +1,38 @@
 <mat-nav-list>
   <a *ngIf="!loggedIn()" mat-list-item routerLink="/signup" routerLinkActive="nav__link--active" (click)="onClose()">
     <mat-icon>face</mat-icon>
-    <span class="nav__caption">Signup</span>
+    <span class="nav__caption">{{ 'navigation.signup' | translate }}</span>
   </a>
   <a *ngIf="!loggedIn()" mat-list-item routerLink="/login" routerLinkActive="nav__link--active" (click)="onClose()">
     <mat-icon>input</mat-icon>
-    <span class="nav__caption">Login</span>
+    <span class="nav__caption">{{ 'navigation.login' | translate }}</span>
   </a>
   <a *ngIf="loggedIn()" mat-list-item routerLink="/customers" routerLinkActive="nav__link--active" (click)="onClose()">
     <mat-icon>account_circle</mat-icon>
-    <span class="nav__caption">Customers</span>
+    <span class="nav__caption">{{ 'navigation.customers' | translate }}</span>
   </a>
   <a *ngIf="loggedIn()" mat-list-item routerLink="/transactions" routerLinkActive="nav__link--active" (click)="onClose()">
     <mat-icon>assignment</mat-icon>
-    <span class="nav__caption">Transactions</span>
+    <span class="nav__caption">{{ 'navigation.transactions' | translate }}</span>
   </a>
   <a *ngIf="loggedIn()" mat-list-item routerLink="/currencies" routerLinkActive="nav__link--active" (click)="onClose()">
     <mat-icon>attach_money</mat-icon>
-    <span class="nav__caption">Currencies</span>
+    <span class="nav__caption">{{ 'navigation.currencies' | translate }}</span>
   </a>
   <mat-list-item *ngIf="loggedIn()">
     <button mat-icon-button (click)="onLogout()">
       <mat-icon>eject</mat-icon>
-      <span class="nav__caption">Logout</span>
+      <span class="nav__caption">{{ 'navigation.logout' | translate }}</span>
     </button>
+  </mat-list-item>
+  <mat-list-item>
+    <div class="dropdown">
+      <mat-icon>language</mat-icon>
+      <span class="nav__caption">Language</span>
+      <div class="dropdown-content">
+        <a>English</a>
+        <a>Russian</a>
+      </div>
+    </div>
   </mat-list-item>
 </mat-nav-list>

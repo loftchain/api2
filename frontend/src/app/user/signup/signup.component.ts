@@ -5,6 +5,7 @@ import {UserService} from '../user.service';
 import {LoginService} from '../login.service';
 import {UserStore} from '../user.store';
 import {NotificationsService} from 'angular2-notifications';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-signup',

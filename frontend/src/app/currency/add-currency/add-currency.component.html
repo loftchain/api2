@@ -1,5 +1,5 @@
 <div class="changing-form mat-elevation-z8">
-  <h2 class="changing-form__title">Create new currency</h2>
+  <h2 class="changing-form__title">{{ 'createCurrency.title' | translate }}</h2>
 
   <mat-form-field>
     <mat-select [(ngModel)]="newCurrency.pair" placeholder="Pair">
@@ -20,7 +20,7 @@
   </mat-form-field>
 
   <div class="changing-form__button-group">
-    <button (click)="createCurrency()" mat-raised-button color="primary">Create</button>
-    <button routerLink="/currencies" mat-raised-button color="warn">Cancel</button>
+    <button (click)="createCurrency()" mat-raised-button color="primary">{{ 'createCurrency.add' | translate }}</button>
+    <button routerLink="/currencies" mat-raised-button color="warn">{{ 'createCurrency.cancel' | translate }}</button>
   </div>
 </div>

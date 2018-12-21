@@ -6,11 +6,20 @@
   </div>
   <div><a routerLink="/">LoftChain API</a></div>
   <ul class="nav__list">
-    <li *ngIf="!loggedIn()" class="nav__item"><a routerLink="/signup" routerLinkActive="nav__item--active">Signup</a></li>
-    <li *ngIf="!loggedIn()" class="nav__item"><a routerLink="/login" routerLinkActive="nav__item--active">Login</a></li>
-    <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/customers" routerLinkActive="nav__item--active">Customers</a></li>
-    <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/transactions" routerLinkActive="nav__item--active">Transactions</a></li>
-    <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/currencies" routerLinkActive="nav__item--active">Currencies</a></li>
-    <li *ngIf="loggedIn()" class="nav__item"><a class="logout" (click)="onLogout()">Logout</a></li>
+    <li *ngIf="!loggedIn()" class="nav__item"><a routerLink="/signup" routerLinkActive="nav__item--active">{{ 'navigation.signup' | translate }}</a></li>
+    <li *ngIf="!loggedIn()" class="nav__item"><a routerLink="/login" routerLinkActive="nav__item--active">{{ 'navigation.login' | translate }}</a></li>
+    <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/customers" routerLinkActive="nav__item--active">{{ 'navigation.customers' | translate }}</a></li>
+    <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/transactions" routerLinkActive="nav__item--active">{{ 'navigation.transactions' | translate }}</a></li>
+    <li *ngIf="loggedIn()" class="nav__item"><a routerLink="/currencies" routerLinkActive="nav__item--active">{{ 'navigation.currencies' | translate }}</a></li>
+    <li *ngIf="loggedIn()" class="nav__item"><a class="logout" (click)="onLogout()">{{ 'navigation.logout' | translate }}</a></li>
+    <li *ngIf="loggedIn()" class="nav__item nav__item--language">
+      <div class="dropdown">
+        <span>Language</span>
+        <div class="dropdown-content">
+          <a>English</a>
+          <a>Russian</a>
+        </div>
+      </div>
+    </li>
   </ul>
 </mat-toolbar>
