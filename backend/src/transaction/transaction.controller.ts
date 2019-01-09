@@ -6,7 +6,7 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    Put,
+    Put, Query, Request
 } from '@nestjs/common';
 
 import { Transaction } from './transaction.entity';
@@ -14,6 +14,7 @@ import { apiPath } from '../api';
 import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
 import { TransactionService } from './transaction.service';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
+import { FindManyOptions } from 'typeorm';
 
 @ApiUseTags('Transactions')
 @Controller(apiPath(1, 'transactions'))
@@ -47,8 +48,25 @@ export class TransactionController {
         type: Transaction,
     })
     @Get()
-    async find(): Promise<Transaction[]> {
-        return this.transactionService.find();
+    async find(@Query() findOptions): Promise<Transaction[]> {
+        const options = {
+          // take: 10,
+          // skip: 0,
+          ...findOptions,
+        };
+
+        return this.transactionService.find(options);
+    }
+
+    @ApiOperation({title: 'Get count transactions'})
+    @ApiResponse({
+        status: 200,
+        description: 'get count transactions',
+        type: Number,
+    })
+    @Get('count')
+    async findCount(): Promise<number> {
+        return this.transactionService.findCount();
     }
 
     @ApiOperation({title: 'Find transaction by id.'})

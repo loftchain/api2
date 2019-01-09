@@ -1,4 +1,5 @@
-<div class="mat-elevation-z8">
+<div class="container mat-elevation-z8">
+  <div class="table-container">
   <table mat-table [dataSource]="filteredTransactions" matSort>
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -71,7 +72,7 @@
     </tr>
 
   </table>
-
+  </div>
   <div class="transaction__footer">
     <div class="transaction-footer__select-wrap">
       <mat-form-field>
@@ -99,7 +100,22 @@
         <input matInput (keyup)="filterTransactions()" [(ngModel)]="filteredName" placeholder="Filter by name">
       </mat-form-field>
     </div>
+  </div>
 
-    <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+  <div class="transaction__paginator">
+    <mat-form-field class="transaction__paginator-select">
+      <mat-select placeholder="Page size" [(ngModel)]="selectedSize" [value]="selectedSize">
+        <mat-option [value]="10" (click)="paginateSelect()">10</mat-option>
+        <mat-option [value]="20" (click)="paginateSelect()">20</mat-option>
+        <mat-option [value]="30" (click)="paginateSelect()">30</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-icon-button (click)="paginateArrows('prev')" [disabled]="!currentPage"><mat-icon>arrow_back</mat-icon></button>
+    <button mat-icon-button (click)="paginateArrows('next')" [disabled]="disableNext"><mat-icon>arrow_forward</mat-icon></button>
+
+    <div>
+      {{ (currentPage + 1) + '-' + (selectedSize + currentPage > transactionsCount ? transactionsCount : selectedSize + currentPage) + ' of ' + transactionsCount }}
+    </div>
   </div>
 </div>

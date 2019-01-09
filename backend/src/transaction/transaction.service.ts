@@ -1,5 +1,5 @@
 import {Injectable, Inject, HttpService} from '@nestjs/common';
-import {Repository} from 'typeorm';
+import {FindManyOptions, Repository} from 'typeorm';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 import { InjectRepository } from '@nestjs/typeorm';
 import axios from 'axios';
@@ -121,8 +121,17 @@ export class TransactionService {
         return true;
     }
 
-    async find(): Promise<Transaction[]> {
-        return await this.transactionRepository.find({relations: ['customer']});
+    async find(findOptions?: FindManyOptions<Transaction>): Promise<Transaction[]> {
+        return await this.transactionRepository.find({
+            relations: ['customer'],
+            ...findOptions,
+        });
+    }
+
+    async findCount(): Promise<number> {
+        const transactions = await this.transactionRepository.find();
+
+        return transactions.length;
     }
 
     async create(request: DeepPartial<Transaction>): Promise<Transaction> {

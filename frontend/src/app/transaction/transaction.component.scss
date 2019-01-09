@@ -17,3 +17,24 @@ th.mat-sort-header-sorted {
     margin-right: 10px;
   }
 }
+
+.container {
+  position: relative;
+}
+
+.table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.transaction__paginator {
+  display: flex;
+  flex-shrink: 1;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.transaction__paginator-select {
+  margin-right: 30px;
+}

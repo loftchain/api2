@@ -1,16 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { TransactionService } from './transaction.service';
 import { DeleteService } from '../delete/delete.service';
+import {Transaction} from './transaction';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-transaction',
   templateUrl: './transaction.component.html',
   styleUrls: ['./transaction.component.scss']
 })
-export class TransactionComponent implements OnInit {
+export class TransactionComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  public pagSubscription: Subscription;
+  public txSubscription: Subscription;
+  public txCountSubscription: Subscription;
+
+  public selectedSize = 10;
+  public currentPage = 0;
+  public disableNext = false;
+  public transactionsCount;
 
   public transactions;
   public filteredTransactions;
@@ -32,14 +42,20 @@ export class TransactionComponent implements OnInit {
 
   ngOnInit() {
     this.getTransactions();
+    this.getTransactionsCount();
   }
 
   async getTransactions() {
-    await this.transactionService.getData().subscribe(data => {
+    this.txSubscription = await this.transactionService.getData({take: this.selectedSize, skip: this.currentPage}).subscribe(data => {
       this.transactions = data;
       this.filteredTransactions = new MatTableDataSource(this.transactions);
       this.filteredTransactions.sort = this.sort;
-      this.filteredTransactions.paginator = this.paginator;
+    });
+  }
+
+  async getTransactionsCount() {
+    this.txCountSubscription = await this.transactionService.getCount().subscribe(data => {
+      this.transactionsCount = data;
     });
   }
 
@@ -59,8 +75,52 @@ export class TransactionComponent implements OnInit {
         .filter(i => this.filteredName !== '' ? i.customer.name.toLowerCase().indexOf(this.filteredName.toLowerCase()) !== -1 : true);
       this.filteredTransactions = new MatTableDataSource(this.filteredTransactions);
       this.filteredTransactions.sort = this.sort;
-      this.filteredTransactions.paginator = this.paginator;
     }
+  }
+
+  paginateArrows(action: string) {
+    if (action === 'next') {
+      this.currentPage += this.selectedSize;
+    }
+
+    if (action === 'prev' && this.currentPage > this.selectedSize) {
+      this.currentPage -= this.selectedSize;
+    } else if (action === 'prev') {
+      this.currentPage = 0;
+    }
+
+    this.pagSubscription = this.transactionService.getData({take: this.selectedSize, skip: this.currentPage}).subscribe(data => {
+      this.transactions = data;
+      this.filteredTransactions = new MatTableDataSource(this.transactions);
+
+      if (this.selectedSize > this.transactions.length) {
+        this.disableNext = true;
+      } else {
+        this.disableNext = false;
+      }
+    });
+  }
+
+  paginateSelect() {
+      this.pagSubscription = this.transactionService.getData({take: this.selectedSize, skip: this.currentPage}).subscribe(data => {
+          this.transactions = data;
+          this.filteredTransactions = new MatTableDataSource(this.transactions);
+
+          if (this.selectedSize > this.transactions.length) {
+              this.disableNext = true;
+          } else {
+              this.disableNext = false;
+          }
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.pagSubscription) {
+        this.pagSubscription.unsubscribe();
+    }
+
+    this.txSubscription.unsubscribe();
+    this.txCountSubscription.unsubscribe();
   }
 }
 
