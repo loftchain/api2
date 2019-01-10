@@ -16,18 +16,11 @@ export class TransactionScheduleService extends NestSchedule {
 
   @Cron('* * * * *')
   async grabEthTx() {
-    console.log('start eth grab');
     await this.transactionService.storeEthTx();
   }
 
-  // @Interval(5000)
-  // intervalJob() {
-  //     console.log('test interval');
-  // }
-
   @Cron('* * * * *')
   async grabBtcTx() {
-      console.log('start btc grab');
       await this.transactionService.storeBtcTx();
   }
 }
