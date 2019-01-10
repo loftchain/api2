@@ -1,4 +1,8 @@
 <div class="welcome mat-elevation-z8">
   <h1>Hi, {{user?.name | titlecase}}</h1>
   <h2>You have been successfully registered</h2>
+  <button (click)="showToken()" mat-button>{{ show ? 'Hide token' : 'Show token' }}</button>
+  <div *ngIf="show" style="word-wrap: break-word; width: 50%">
+    {{ token }}
+  </div>
 </div>
