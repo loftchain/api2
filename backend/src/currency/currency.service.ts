@@ -5,13 +5,14 @@ import {DeepPartial} from 'typeorm/common/DeepPartial';
 
 import {Currency} from './currency.entity';
 import {CurrencyDto} from './currency.dto';
-import { InjectRepository } from '@nestjs/typeorm';
+import {InjectRepository} from '@nestjs/typeorm';
 
 @Injectable()
 export class CurrencyService {
     constructor(@InjectRepository(Currency) private readonly currencyRepository: Repository<Currency>,
                 private readonly httpService: HttpService,
-    ) {}
+    ) {
+    }
 
     async grab(): Promise<object> {
         const pairs: string[] = [
@@ -35,6 +36,8 @@ export class CurrencyService {
                 });
 
                 const savedCurrency = this.currencyRepository.save(currency);
+            }, error => {
+                console.log(error.response.data);
             });
         });
 

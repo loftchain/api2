@@ -27,6 +27,8 @@ export class TransactionService {
         await this.httpService.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + wallet + '&sort=asc&apikey=' + apiKey)
             .subscribe(res => {
                 transactions = res.data.result;
+            }, error => {
+                console.log(error.response.data);
             });
 
         return transactions;
@@ -38,6 +40,8 @@ export class TransactionService {
         await this.httpService.get('https://chain.so/api/v2/address/BTC/' + wallet)
             .subscribe(res => {
                 count = res.data.data.total_txs;
+            }, error => {
+                console.log(error.response.data);
             });
 
         return count;
@@ -50,6 +54,8 @@ export class TransactionService {
             + apiKey + '&type=received&addresses=' + wallet + '&before_tx=' + lastetTx)
             .subscribe(res => {
                 transactions = res.data.data.txs;
+            }, error => {
+                console.log(error.response.data);
             });
 
         return transactions;
