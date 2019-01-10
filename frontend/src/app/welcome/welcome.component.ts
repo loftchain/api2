@@ -7,7 +7,7 @@ import {UserService} from '../user/user.service';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-  private user;
+  public user;
   constructor(private userService: UserService) { }
 
   ngOnInit() {
