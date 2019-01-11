@@ -10,18 +10,12 @@ import {TokenStorage} from '../user/token.storage';
 })
 export class WelcomeComponent implements OnInit {
   public user;
-  public token;
-  public show = false;
-  constructor(private userService: UserService, private readonly tokenStorage: TokenStorage) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getUser()
       .subscribe(data => {
         this.user = data;
       });
-    this.token = this.tokenStorage.token;
-  }
-  showToken() {
-    this.show = this.show ? false : true;
   }
 }
