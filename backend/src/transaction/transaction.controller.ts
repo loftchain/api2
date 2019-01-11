@@ -12,7 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 import { Transaction } from './transaction.entity';
 import { apiPath } from '../api';
-import { ApiOperation, ApiResponse, ApiUseTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiUseTags, ApiBearerAuth } from '@nestjs/swagger';
 import { TransactionService } from './transaction.service';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 import { FindManyOptions } from 'typeorm';
@@ -22,6 +22,7 @@ import { FindManyOptions } from 'typeorm';
 export class TransactionController {
     constructor(private readonly transactionService: TransactionService) {}
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Grab ETH transactions.'})
     @ApiResponse({
         status: 200,
@@ -33,6 +34,7 @@ export class TransactionController {
         return this.transactionService.storeEthTx();
     }
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Grab BTC transactions.'})
     @ApiResponse({
         status: 200,
@@ -44,6 +46,7 @@ export class TransactionController {
         return this.transactionService.storeBtcTx();
     }
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Get transactions.'})
     @ApiResponse({
         status: 200,
@@ -62,6 +65,7 @@ export class TransactionController {
         return this.transactionService.find(options);
     }
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Get count transactions'})
     @ApiResponse({
         status: 200,
@@ -74,6 +78,7 @@ export class TransactionController {
         return this.transactionService.findCount();
     }
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Find transaction by id.'})
     @ApiResponse({
         status: 200,
@@ -86,6 +91,7 @@ export class TransactionController {
         return this.transactionService.findOne(id);
     }
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Create transaction.'})
     @ApiResponse({
         status: 201,
@@ -97,6 +103,7 @@ export class TransactionController {
         return this.transactionService.create(requsetBody);
     }
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Update transaction.'})
     @ApiResponse({
         status: 201,
@@ -109,6 +116,7 @@ export class TransactionController {
         return this.transactionService.update(id, requsetBody);
     }
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Delete transaction.'})
     @ApiResponse({
         status: 201,
