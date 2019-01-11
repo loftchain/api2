@@ -28,6 +28,7 @@ export class CurrencyController {
         description: 'Currency success grab',
         type: {},
     })
+    @UseGuards(AuthGuard())
     @Get('grab')
     async grab(): Promise<object> {
         return this.currencyService.grab();

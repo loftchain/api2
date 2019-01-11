@@ -6,7 +6,7 @@ import {
     Param,
     ParseIntPipe,
     Post,
-    Put, Query, Request
+    Put, Query, Request, UseGuards,
 } from '@nestjs/common';
 
 import { Transaction } from './transaction.entity';
@@ -26,6 +26,7 @@ export class TransactionController {
         status: 200,
         description: 'Success grab.',
     })
+    @UseGuards(AuthGuard())
     @Get('grab/eth')
     async grabEth(): Promise<boolean> {
         return this.transactionService.storeEthTx();
@@ -36,6 +37,7 @@ export class TransactionController {
         status: 200,
         description: 'Success grab.',
     })
+    @UseGuards(AuthGuard())
     @Get('grab/btc')
     async grabBtc() {
         return this.transactionService.storeBtcTx();
@@ -47,6 +49,7 @@ export class TransactionController {
         description: 'transactions successfully received.',
         type: Transaction,
     })
+    @UseGuards(AuthGuard())
     @Get()
     async find(@Query() findOptions): Promise<Transaction[]> {
         const options = {
@@ -64,6 +67,7 @@ export class TransactionController {
         description: 'get count transactions',
         type: Number,
     })
+    @UseGuards(AuthGuard())
     @Get('count')
     async findCount(): Promise<number> {
         return this.transactionService.findCount();
@@ -75,6 +79,7 @@ export class TransactionController {
         description: 'Transaction successfully find.',
         type: Transaction,
     })
+    @UseGuards(AuthGuard())
     @Get(':id')
     async findOne(@Param('id', new ParseIntPipe()) id: number): Promise<Transaction> {
         return this.transactionService.findOne(id);
@@ -85,6 +90,7 @@ export class TransactionController {
         status: 201,
         description: 'Transaction successfully created.',
     })
+    @UseGuards(AuthGuard())
     @Post()
     async create(@Body() requsetBody: DeepPartial<Transaction>): Promise<Transaction> {
         return this.transactionService.create(requsetBody);
@@ -96,6 +102,7 @@ export class TransactionController {
         description: 'Transaction successfully updated.',
         type: Boolean,
     })
+    @UseGuards(AuthGuard())
     @Put(':id')
     async update(@Param('id', new ParseIntPipe()) id: number, @Body() requsetBody: DeepPartial<Transaction>): Promise<boolean> {
         return this.transactionService.update(id, requsetBody);
@@ -107,6 +114,7 @@ export class TransactionController {
         description: 'Transaction successfully deleted.',
         type: Boolean,
     })
+    @UseGuards(AuthGuard())
     @Delete(':id')
     async delete(@Param('id', new ParseIntPipe()) id: number): Promise<boolean> {
         return this.transactionService.delete(id);
