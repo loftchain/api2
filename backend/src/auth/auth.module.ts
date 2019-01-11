@@ -16,7 +16,7 @@ import { PasswordCryptographerService } from './password-cryptographer/password-
     JwtModule.register({
       secretOrPrivateKey: 'testSecret',
       signOptions: {
-        expiresIn: '7d',
+        expiresIn: '10y',
       },
     }),
     UserModule,
