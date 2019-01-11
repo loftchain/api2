@@ -8,6 +8,7 @@ import {
     Post,
     Put, Query, Request, UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 
 import { Transaction } from './transaction.entity';
 import { apiPath } from '../api';
