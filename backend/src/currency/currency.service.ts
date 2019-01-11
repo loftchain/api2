@@ -1,16 +1,16 @@
 import {Injectable, HttpService} from '@nestjs/common';
 import {Repository} from 'typeorm';
-import axios from 'axios';
-import {DeepPartial} from 'typeorm/common/DeepPartial';
 
-import {Currency} from './currency.entity';
-import {CurrencyDto} from './currency.dto';
-import {InjectRepository} from '@nestjs/typeorm';
+import { Currency } from './currency.entity';
+import { CurrencyDto } from './currency.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class CurrencyService {
     constructor(@InjectRepository(Currency) private readonly currencyRepository: Repository<Currency>,
                 private readonly httpService: HttpService,
+                private readonly config: ConfigService,
     ) {
     }
 
@@ -25,7 +25,7 @@ export class CurrencyService {
             this.httpService.request({
                 method: 'get',
                 url: 'https://rest.coinapi.io/v1/exchangerate/' + i,
-                headers: {'X-CoinAPI-Key': 'FD93956C-E7F6-4564-A60B-A320FE7BE2F3'},
+                headers: {'X-CoinAPI-Key': this.config.get('API_CURRENCY_KEY')},
             }).subscribe(res => {
                 const {data} = res;
 
@@ -36,9 +36,7 @@ export class CurrencyService {
                 });
 
                 const savedCurrency = this.currencyRepository.save(currency);
-            }, error => {
-                console.log(error.response.data);
-            });
+            }, error => console.log(error.response.data));
         });
 
         return {

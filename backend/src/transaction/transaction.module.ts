@@ -8,9 +8,11 @@ import { Transaction } from './transaction.entity';
 import { Wallet } from '../wallet/wallet.entity';
 import { Customer } from '../customer/customer.entity';
 import { TransactionScheduleService } from './transaction-schedule.service';
+import { ConfigModule } from '../config/config.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Transaction, Wallet, Customer]), PassportModule.register({ defaultStrategy: 'jwt' }), HttpModule],
+    imports: [TypeOrmModule.forFeature([Transaction, Wallet, Customer]), PassportModule.register({ defaultStrategy: 'jwt' }), HttpModule,
+    ConfigModule],
     controllers: [TransactionController],
     providers: [TransactionService, TransactionScheduleService],
 })

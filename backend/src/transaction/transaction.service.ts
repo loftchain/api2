@@ -2,55 +2,38 @@ import {Injectable, Inject, HttpService} from '@nestjs/common';
 import {FindManyOptions, Repository} from 'typeorm';
 import { DeepPartial } from 'typeorm/common/DeepPartial';
 import { InjectRepository } from '@nestjs/typeorm';
-import axios from 'axios';
 
 import { Transaction } from './transaction.entity';
 import { Wallet } from '../wallet/wallet.entity';
 import { Customer } from '../customer/customer.entity';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class TransactionService {
-    private readonly axios = axios;
-    private readonly apiKeyEth = 'RMH5QFETBID9BXHSDXYG7I4AHN692URJWX';
-    private readonly apiKeyBtc = 'c73d-c0bb-3311-36cf';
-
     constructor(@InjectRepository(Transaction) private readonly transactionRepository: Repository<Transaction>,
                 @InjectRepository(Wallet) private readonly walletRepositroy: Repository<Wallet>,
                 @InjectRepository(Customer) private readonly customerRepository: Repository<Customer>,
                 private readonly httpService: HttpService,
+                private readonly config: ConfigService,
     ) {
     }
 
-    private grabEth(apiKey: string, wallet: string) {
-        return this.httpService.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + wallet + '&sort=asc&apikey=' + apiKey);
+    private grabEth(wallet: string) {
+        return this.httpService.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + wallet + '&sort=asc&apikey='
+            + this.config.get('API_KEY_ETH'));
                 // transactions = res.data.result;
     }
 
-    private async getNumberTransactionsBtc(wallet: string): Promise<number> {
-        let count: number;
-
-        await this.httpService.get('https://chain.so/api/v2/address/BTC/' + wallet)
-            .subscribe(res => {
-                count = res.data.data.total_txs;
-            }, error => {
-                console.log(error.response.data);
-            });
-
-        return count;
+    private getNumberTransactionsBtc(wallet: string) {
+        return this.httpService.get('https://chain.so/api/v2/address/BTC/' + wallet);
+                // count = res.data.data.total_txs;
     }
 
-    private async grabBtc(apiKey: string, wallet: string, lastetTx: string): Promise<any> {
-        let transactions;
+    private grabBtc(wallet: string, lastetTx: string) {
+        return this.httpService.get('https://block.io/api/v2/get_transactions/?api_key='
+            + this.config.get('API_KEY_BTC') + '&type=received&addresses=' + wallet + '&before_tx=' + lastetTx);
+                // transactions = res.data.data.txs;
 
-        await this.httpService.get('https://block.io/api/v2/get_transactions/?api_key='
-            + apiKey + '&type=received&addresses=' + wallet + '&before_tx=' + lastetTx)
-            .subscribe(res => {
-                transactions = res.data.data.txs;
-            }, error => {
-                console.log(error.response.data);
-            });
-
-        return transactions;
     }
 
     async storeBtcTx(): Promise<boolean> {
@@ -60,31 +43,36 @@ export class TransactionService {
             .getMany();
 
         wallets.map(async wallet => {
-            const count = await this.getNumberTransactionsBtc(wallet.wallet);
-            const iterator = Math.ceil(count / 25);
-            let newTx = '';
-            let lastetTx = '';
+            this.getNumberTransactionsBtc(wallet.wallet).subscribe(res => {
+                const count = res.data.data.total_txs;
+                const iterator = Math.ceil(count / 25);
+                let newTx = '';
+                let lastetTx = '';
 
-            for (let i = 0; i < iterator; i++) {
-                const transactions = await this.grabBtc(this.apiKeyBtc, wallet.wallet, lastetTx);
-                transactions.map(async transaction => {
-                    const isTransaction = await this.transactionRepository.findOne({txId: transaction.txid});
-                    if (newTx !== transaction.txid && !isTransaction) {
-                        const newTransaction = await this.transactionRepository.create({
-                            txId: transaction.txid,
-                            currency: wallet.currency,
-                            from: transaction.senders[0],
-                            amount: transaction.amounts_received[0].amount,
-                            date: new Date(Number(transaction.time) * 1000).toUTCString(),
-                            status: transaction.confidence === 1 ? 'true' : 'false',
-                            customer: wallet.customer,
-                        });
-                        const savedTransaction = await this.transactionRepository.save(newTransaction);
-                    }
-                    newTx = transaction.txid;
-                    lastetTx = transactions[transactions.length - 1].txid;
-                });
-            }
+                for (let i = 0; i < iterator; i++) {
+                    this.grabBtc(wallet.wallet, lastetTx)
+                        .subscribe(result => {
+                            const transactions = result.data.data.txs;
+                            transactions.map(async transaction => {
+                                const isTransaction = await this.transactionRepository.findOne({txId: transaction.txid});
+                                if (newTx !== transaction.txid && !isTransaction) {
+                                    const newTransaction = await this.transactionRepository.create({
+                                        txId: transaction.txid,
+                                        currency: wallet.currency,
+                                        from: transaction.senders[0],
+                                        amount: transaction.amounts_received[0].amount,
+                                        date: new Date(Number(transaction.time) * 1000).toUTCString(),
+                                        status: transaction.confidence === 1 ? 'true' : 'false',
+                                        customer: wallet.customer,
+                                    });
+                                    await this.transactionRepository.save(newTransaction);
+                                }
+                                newTx = transaction.txid;
+                                lastetTx = transactions[transactions.length - 1].txid;
+                            });
+                        }, error => console.log(error.response.data));
+                }
+            }, error => console.log(error.response.data));
         });
 
         return true;
@@ -97,7 +85,7 @@ export class TransactionService {
             .getMany();
 
         wallets.map(async wallet => {
-            this.grabEth(this.apiKeyEth, wallet.wallet).subscribe(res => {
+            this.grabEth(wallet.wallet).subscribe(res => {
                 const transactions = res.data.result;
                 transactions.map(async transaction => {
                     const isTransaction = await this.transactionRepository.findOne({txId: transaction.hash});
