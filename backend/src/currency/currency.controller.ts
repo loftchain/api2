@@ -22,6 +22,7 @@ import { AuthGuard } from '@nestjs/passport';
 export class CurrencyController {
     constructor(private readonly currencyService: CurrencyService) {}
 
+    @ApiBearerAuth()
     @ApiOperation({title: 'Grab currencies.'})
     @ApiResponse({
         status: 200,

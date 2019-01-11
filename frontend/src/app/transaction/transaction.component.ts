@@ -56,6 +56,9 @@ export class TransactionComponent implements OnInit, OnDestroy {
   async getTransactionsCount() {
     this.txCountSubscription = await this.transactionService.getCount().subscribe(data => {
       this.transactionsCount = data;
+      if (data <= this.selectedSize) {
+          this.disableNext = true;
+      }
     });
   }
 
