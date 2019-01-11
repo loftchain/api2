@@ -13,8 +13,8 @@ export class CurrencyScheduleService extends NestSchedule {
     super();
   }
 
-  @Cron('10 * * * *')
-  async grab() {
+  @Cron('0 0 * * *')
+  async grabCurrencies() {
       await this.currencySerivce.grab();
   }
 }
