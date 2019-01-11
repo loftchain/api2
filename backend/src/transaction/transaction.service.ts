@@ -21,17 +21,9 @@ export class TransactionService {
     ) {
     }
 
-    private async grabEth(apiKey: string, wallet: string) {
-        let transactions;
-
-        await this.httpService.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + wallet + '&sort=asc&apikey=' + apiKey)
-            .subscribe(res => {
-                transactions = res.data.result;
-            }, error => {
-                console.log(error.response.data);
-            });
-
-        return transactions;
+    private grabEth(apiKey: string, wallet: string) {
+        return this.httpService.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + wallet + '&sort=asc&apikey=' + apiKey);
+                // transactions = res.data.result;
     }
 
     private async getNumberTransactionsBtc(wallet: string): Promise<number> {
@@ -105,23 +97,24 @@ export class TransactionService {
             .getMany();
 
         wallets.map(async wallet => {
-            const transactions = await this.grabEth(this.apiKeyEth, wallet.wallet);
-            transactions.map(async transaction => {
-                const isTransaction = await this.transactionRepository.findOne({txId: transaction.hash});
-                if (!isTransaction) {
-                    const newTransaction = await this.transactionRepository.create({
-                        txId: transaction.hash,
-                        currency: wallet.currency,
-                        from: transaction.from,
-                        amount: transaction.value / 1000000000000000000,
-                        date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
-                        status: transaction.isError === 1 ? 'false' : 'true',
-                        customer: wallet.customer,
-                    });
-
-                    const savedTransaction = await this.transactionRepository.save(newTransaction);
-                }
-            });
+            this.grabEth(this.apiKeyEth, wallet.wallet).subscribe(res => {
+                const transactions = res.data.result;
+                transactions.map(async transaction => {
+                    const isTransaction = await this.transactionRepository.findOne({txId: transaction.hash});
+                    if (!isTransaction) {
+                        const newTransaction = await this.transactionRepository.create({
+                            txId: transaction.hash,
+                            currency: wallet.currency,
+                            from: transaction.from,
+                            amount: transaction.value / 1000000000000000000,
+                            date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
+                            status: transaction.isError === 1 ? 'false' : 'true',
+                            customer: wallet.customer,
+                        });
+                        await this.transactionRepository.save(newTransaction);
+                    }
+                });
+            }, error => console.log(error.response.data));
         });
 
         return true;
