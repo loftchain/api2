@@ -18,7 +18,9 @@ export class Customer {
     @Column({type: 'timestamp', nullable: true})
     date: string;
 
-    @OneToMany(type => Transaction, transaction => transaction.customer)
+    @OneToMany(type => Transaction, transaction => transaction.customer, {
+        eager: true,
+    })
     transaction: Transaction[];
 
     @ApiModelProperty()
