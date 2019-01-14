@@ -7,6 +7,7 @@ import { UserDto } from './user.dto';
 import { apiPath } from '../api';
 import { ApiUseTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { User } from './user.entity';
+import {CurrentUser} from "./user.decorator";
 
 @ApiUseTags('Users')
 @Controller(apiPath(1, 'users'))
@@ -44,5 +45,19 @@ export class UserController {
               throw new InternalServerErrorException(err.message);
             }
           }
+    }
+
+    @ApiOperation({title: 'Register new account'})
+    @ApiResponse({
+        status: 200,
+        description: 'Credentials are ok, returning new user data.',
+        type: User,
+    })
+    @ApiResponse({status: 400, description: 'Email or password are not valid!'})
+    @UseGuards(AuthGuard())
+    @Get('current')
+    async current(@CurrentUser() currentUser) {
+        console.log(currentUser)
+        return currentUser;
     }
 }

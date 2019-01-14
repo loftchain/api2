@@ -26,16 +26,17 @@ export class UserService {
 }
 
   getUser(): Observable<User | null> {
-    const $data = this.http.get(this.apiUrl + 'users/current')
-      .pipe(
-        map((resp: any) => resp.data)
-      );
-    return $data.pipe(
-      catchError(() => {
-        // cannot fetch user, since not logged in
-        return of(null);
-      })
-    );
+    // const $data = this.http.get(this.apiUrl + 'users/current')
+    //   .pipe(
+    //     map((resp: any) => resp.data)
+    //   );
+    // return $data.pipe(
+    //   catchError(() => {
+    //     // cannot fetch user, since not logged in
+    //     return of(null);
+    //   })
+    // );
+      return this.http.get(this.apiUrl + 'users/current');
   }
 
   // getUserById(id: number): Observable<User> {
