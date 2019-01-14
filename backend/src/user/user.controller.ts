@@ -47,17 +47,15 @@ export class UserController {
           }
     }
 
-    @ApiOperation({title: 'Register new account'})
+    @ApiOperation({title: 'Get auth user'})
     @ApiResponse({
         status: 200,
-        description: 'Credentials are ok, returning new user data.',
+        description: 'Get current auth user',
         type: User,
     })
-    @ApiResponse({status: 400, description: 'Email or password are not valid!'})
     @UseGuards(AuthGuard())
     @Get('current')
     async current(@CurrentUser() currentUser) {
-        console.log(currentUser)
         return currentUser;
     }
 }
