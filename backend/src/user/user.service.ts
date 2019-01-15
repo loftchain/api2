@@ -30,8 +30,8 @@ export class UserService {
         return savedUsers;
     }
 
-    async checkByPayload(idPayLoad: number): Promise<User> {
-        return await this.userRepository.findOne({id: idPayLoad});
+    async checkByPayload(idPayLoad): Promise<User> {
+        return await this.userRepository.findOne(idPayLoad);
     }
 
     async findByEmail(email: string) {

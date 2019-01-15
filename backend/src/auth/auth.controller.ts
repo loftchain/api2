@@ -43,7 +43,7 @@ export class AuthController {
         if (!user || !await this.passwordCryptographerService.doCompare(req.password, user.password)) {
             throw new BadRequestException('Incorrect email or password!');
         }
-        const token = await this.authService.signIn(classToPlain(user));
+        const token = await this.authService.signIn({id: user.id});
 
         return {
             user,
