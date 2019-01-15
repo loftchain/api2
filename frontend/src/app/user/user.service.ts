@@ -36,7 +36,7 @@ export class UserService {
     //     return of(null);
     //   })
     // );
-      return this.http.get(this.apiUrl + 'users/current');
+      return this.http.get<User>(this.apiUrl + 'users/current');
   }
 
   // getUserById(id: number): Observable<User> {
