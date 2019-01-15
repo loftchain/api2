@@ -15,7 +15,7 @@ import {ApiTransactionService} from './transaction.service';
 import {Transaction} from '../../transaction/transaction.entity';
 
 @ApiUseTags('Api-Transactions')
-@Controller(apiPath(1, 'api-transactions'))
+@Controller('api')
 export class ApiTransactionController {
     constructor(private readonly transactionService: ApiTransactionService) {}
 
@@ -27,7 +27,7 @@ export class ApiTransactionController {
         type: Transaction,
     })
     @UseGuards(AuthGuard())
-    @Get('customer/:id')
+    @Get('tx/:id')
     getByCustomerId(@Param('id', new ParseIntPipe()) id: number) {
         return this.transactionService.getByCustomerId(id);
     }

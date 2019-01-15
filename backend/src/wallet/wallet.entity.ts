@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 
 import {Customer} from '../customer/customer.entity';
 
@@ -13,8 +13,11 @@ export class Wallet {
     @Column({length: 255, nullable: true})
     wallet: string;
 
-    @Column({type: 'timestamp', nullable: true})
-    date: string;
+    @CreateDateColumn({type: 'timestamp', nullable: true})
+    createdAt: string;
+
+    @UpdateDateColumn({type: 'timestamp', nullable: true})
+    updatedAt: string;
 
     @ManyToOne(type => Customer, customer => customer.wallet, {
         onDelete: 'CASCADE',

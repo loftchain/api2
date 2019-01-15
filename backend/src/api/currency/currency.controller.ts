@@ -17,7 +17,7 @@ import {Transaction} from '../../transaction/transaction.entity';
 import {Currency} from '../../currency/currency.entity';
 
 @ApiUseTags('Api-Currency')
-@Controller(apiPath(1, 'api-currencies'))
+@Controller('api')
 export class ApiCurrencyController {
     constructor(private readonly currencyService: ApiCurrencyService) {}
 
@@ -29,7 +29,7 @@ export class ApiCurrencyController {
         type: Currency,
     })
     @UseGuards(AuthGuard())
-    @Get()
+    @Get('currencies')
     async getCurrencies() {
         return await this.currencyService.getCurrencies();
     }

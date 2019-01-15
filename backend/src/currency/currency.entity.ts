@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from 'typeorm';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Entity()
@@ -20,6 +20,10 @@ export class Currency {
     timestamp: string;
 
     @ApiModelProperty()
-    @Column({type: 'timestamp', nullable: true})
+    @CreateDateColumn({type: 'timestamp', nullable: true})
     createdAt: string;
+
+    @ApiModelProperty()
+    @UpdateDateColumn({type: 'timestamp', nullable: true})
+    updatedAt: string;
 }

@@ -1,4 +1,13 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn, JoinColumn, JoinTable, RelationCount} from 'typeorm';
+import {
+    Column,
+    Entity,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    JoinColumn,
+    JoinTable,
+    RelationCount,
+    CreateDateColumn, UpdateDateColumn
+} from 'typeorm';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 import {Transaction} from '../transaction/transaction.entity';
@@ -15,8 +24,12 @@ export class Customer {
     name: string;
 
     @ApiModelProperty()
-    @Column({type: 'timestamp', nullable: true})
-    date: string;
+    @CreateDateColumn({type: 'timestamp', nullable: true})
+    createdAt: string;
+
+    @ApiModelProperty()
+    @UpdateDateColumn({type: 'timestamp', nullable: true})
+    updatedAt: string;
 
     @OneToMany(type => Transaction, transaction => transaction.customer, {
         eager: true,
