@@ -56,13 +56,7 @@ export class TransactionController {
     @UseGuards(AuthGuard())
     @Get()
     async find(@Query() findOptions): Promise<Transaction[]> {
-        const options = {
-          // take: 10,
-          // skip: 0,
-          ...findOptions,
-        };
-
-        return this.transactionService.find(options);
+        return this.transactionService.find(findOptions);
     }
 
     @ApiBearerAuth()

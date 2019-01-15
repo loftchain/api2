@@ -75,8 +75,8 @@
     <div class="transaction-footer__select-wrap">
       <mat-form-field>
         <mat-select placeholder="Filter by currency" [(ngModel)]="filteredCurrency">
-          <mat-option (click)="filterTransactions()" [value]="null">All</mat-option>
-          <mat-option (click)="filterTransactions()" *ngFor="let pair of currencyPairs" [value]="pair.value">{{pair.viewValue}}</mat-option>
+          <mat-option (click)="paginateArrows()" [value]="null">All</mat-option>
+          <mat-option (click)="paginateArrows()" *ngFor="let pair of currencyPairs" [value]="pair.value">{{pair.viewValue}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -85,8 +85,8 @@
 
       <mat-form-field>
         <mat-select placeholder="Filter by status" [(ngModel)]="filteredStatus">
-          <mat-option (click)="filterTransactions()" [value]="null">All</mat-option>
-          <mat-option (click)="filterTransactions()" *ngFor="let pair of statusPairs" [value]="pair.value">
+          <mat-option (click)="paginateArrows()" [value]="null">All</mat-option>
+          <mat-option (click)="paginateArrows()" *ngFor="let pair of statusPairs" [value]="pair.value">
             {{pair.viewValue}}
           </mat-option>
         </mat-select>
@@ -95,7 +95,7 @@
 
     <div class="transaction-footer__select-wrap">
       <mat-form-field>
-        <input matInput (keyup)="filterTransactions()" [(ngModel)]="filteredName" placeholder="Filter by name">
+        <input matInput (keyup)="paginateArrows()" [(ngModel)]="filteredName" placeholder="Filter by name">
       </mat-form-field>
     </div>
   </div>
@@ -103,9 +103,9 @@
   <div class="transaction__paginator">
     <mat-form-field class="transaction__paginator-select">
       <mat-select placeholder="Page size" [(ngModel)]="selectedSize" [value]="selectedSize">
-        <mat-option [value]="10" (click)="paginateSelect()">10</mat-option>
-        <mat-option [value]="20" (click)="paginateSelect()">20</mat-option>
-        <mat-option [value]="30" (click)="paginateSelect()">30</mat-option>
+        <mat-option [value]="10" (click)="paginateArrows()">10</mat-option>
+        <mat-option [value]="20" (click)="paginateArrows()">20</mat-option>
+        <mat-option [value]="30" (click)="paginateArrows()">30</mat-option>
       </mat-select>
     </mat-form-field>
 

@@ -71,16 +71,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.deleteService.messageSource.next(data);
   }
 
-  filterTransactions() {
-    if (this.transactions) {
-      this.filteredTransactions = this.transactions.filter(i => this.filteredCurrency ? this.filteredCurrency.includes(i.currency) : true)
-        .filter(i => this.filteredStatus ? this.filteredStatus.includes(i.status) : true)
-        .filter(i => this.filteredName !== '' ? i.customer.name.toLowerCase().indexOf(this.filteredName.toLowerCase()) !== -1 : true);
-      this.filteredTransactions = new MatTableDataSource(this.filteredTransactions);
-      this.filteredTransactions.sort = this.sort;
-    }
-  }
-
   paginateArrows(action: string) {
     if (action === 'next') {
       this.currentPage += this.selectedSize;
@@ -92,7 +82,12 @@ export class TransactionComponent implements OnInit, OnDestroy {
       this.currentPage = 0;
     }
 
-    this.pagSubscription = this.transactionService.getData({take: this.selectedSize, skip: this.currentPage}).subscribe(data => {
+    this.pagSubscription = this.transactionService.getData({
+        take: this.selectedSize,
+        skip: this.currentPage,
+        currency: this.filteredCurrency,
+        status: this.filteredStatus
+    }).subscribe(data => {
       this.transactions = data;
       this.filteredTransactions = new MatTableDataSource(this.transactions);
 
@@ -102,19 +97,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
         this.disableNext = false;
       }
     });
-  }
-
-  paginateSelect() {
-      this.pagSubscription = this.transactionService.getData({take: this.selectedSize, skip: this.currentPage}).subscribe(data => {
-          this.transactions = data;
-          this.filteredTransactions = new MatTableDataSource(this.transactions);
-
-          if (this.selectedSize > this.transactions.length) {
-              this.disableNext = true;
-          } else {
-              this.disableNext = false;
-          }
-      });
   }
 
   ngOnDestroy() {

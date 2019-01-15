@@ -108,10 +108,22 @@ export class TransactionService {
         return true;
     }
 
-    async find(findOptions?: FindManyOptions<Transaction>): Promise<Transaction[]> {
+    async find(findOptions?): Promise<Transaction[]> {
+        const wherePayload = {};
+
+        if (findOptions.currency) {
+            wherePayload['currency'] = findOptions.currency;
+        }
+
+        if (findOptions.status) {
+            wherePayload['status'] = findOptions.status;
+        }
+
         return await this.transactionRepository.find({
             relations: ['customer'],
-            ...findOptions,
+            take: findOptions.take,
+            skip: findOptions.skip,
+            where: wherePayload,
         });
     }
 
@@ -126,9 +138,7 @@ export class TransactionService {
         const transaction = await this.transactionRepository.create(request);
         const merge = Object.assign(transaction, {findCustomer});
 
-        const savedTransaction = await this.transactionRepository.save(merge);
-
-        return savedTransaction;
+        return await this.transactionRepository.save(merge);
     }
 
     async findOne(id: number): Promise<Transaction> {
@@ -138,7 +148,7 @@ export class TransactionService {
     async update(id: number, request: DeepPartial<Transaction>): Promise<boolean> {
         const findCustomer =  await this.customerRepository.findOne(request.customer);
         const merge = Object.assign(request, {findCustomer});
-        const updatedTransaction = await this.transactionRepository.update(id, merge);
+        await this.transactionRepository.update(id, merge);
 
         return true;
     }

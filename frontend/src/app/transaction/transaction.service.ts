@@ -5,6 +5,7 @@ import {Transaction} from './transaction';
 import { ApiUrl } from '../resource/api-url';
 import {NotificationsService} from 'angular2-notifications';
 import {IFindOptions} from './find-options.model';
+import querystring from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,23 @@ export class TransactionService {
     private http: HttpClient,
   ) { }
 
-  getData(findOptions?: IFindOptions): Observable<Transaction[]> {
+  getData(findOptions?): Observable<Transaction[]> {
     let txUrl;
 
     if (findOptions) {
-      txUrl = this.apiUrl + 'transactions?take=' + findOptions.take + '&skip=' + findOptions.skip;
+        const buildURLQuery = obj =>
+            Object.entries(obj)
+                .map(pair => pair.map(encodeURIComponent).join('='))
+                .join('&');
+
+        const newParam = {};
+        for (let p in findOptions) {
+            if (findOptions[p]) {
+                newParam[p] = findOptions[p];
+            }
+        }
+
+      txUrl = this.apiUrl + 'transactions?' + buildURLQuery(newParam);
     } else {
       txUrl = this.apiUrl + 'transactions';
     }
