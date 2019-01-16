@@ -14,8 +14,6 @@ export class TransactionComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   public pagSubscription: Subscription;
-  public txSubscription: Subscription;
-  public txCountSubscription: Subscription;
 
   public selectedSize = 10;
   public currentPage = 0;
@@ -90,12 +88,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.pagSubscription) {
-        this.pagSubscription.unsubscribe();
-    }
-
-    this.txSubscription.unsubscribe();
-    this.txCountSubscription.unsubscribe();
+    this.pagSubscription.unsubscribe();
   }
 }
 
