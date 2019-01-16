@@ -3,4 +3,5 @@ export interface IFindOptions {
     readonly skip: number;
     readonly currency: string;
     readonly status: string;
+    readonly name: string;
 }

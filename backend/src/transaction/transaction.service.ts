@@ -87,47 +87,50 @@ export class TransactionService {
         wallets.map(async wallet => {
             this.grabEth(wallet.wallet).subscribe(res => {
                 const transactions = res.data.result;
-                transactions.map(async transaction => {
-                    const isTransaction = await this.transactionRepository.findOne({txId: transaction.hash});
-                    if (!isTransaction) {
-                        const newTransaction = await this.transactionRepository.create({
-                            txId: transaction.hash,
-                            currency: wallet.currency,
-                            from: transaction.from,
-                            amount: transaction.value / 1000000000000000000,
-                            date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
-                            status: transaction.isError === 1 ? 'false' : 'true',
-                            customer: wallet.customer,
-                        });
-                        await this.transactionRepository.save(newTransaction);
-                    }
-                });
-            }, error => console.log(error.response.data));
+                if (transactions.data) {
+                    transactions.map(async transaction => {
+                        const isTransaction = await this.transactionRepository.findOne({txId: transaction.hash});
+                        if (!isTransaction) {
+                            const newTransaction = await this.transactionRepository.create({
+                                txId: transaction.hash,
+                                currency: wallet.currency,
+                                from: transaction.from,
+                                amount: transaction.value / 1000000000000000000,
+                                date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
+                                status: transaction.isError === 1 ? 'false' : 'true',
+                                customer: wallet.customer,
+                            });
+                            await this.transactionRepository.save(newTransaction);
+                        }
+                    });
+                }
+
+            }, error => console.log(error.response));
         });
 
         return true;
     }
 
-    async find(findOptions?): Promise<Transaction[]> {
-        const wherePayload = {};
+    async find(findOptions) {
+        const transactions = await this.transactionRepository.createQueryBuilder('transaction')
+            .leftJoinAndSelect('transaction.customer', 'customer')
+            .skip(findOptions.skip)
+            .take(findOptions.take);
 
-        if (findOptions.currency) {
-            wherePayload['currency'] = findOptions.currency;
+        if (findOptions.name) {
+            transactions.andWhere('customer.name like :name', {name: '%' + findOptions.name + '%'});
         }
-
         if (findOptions.status) {
-            wherePayload['status'] = findOptions.status;
+            transactions.andWhere('transaction.status = :status', {status: findOptions.status});
+        }
+        if (findOptions.currency) {
+            transactions.andWhere('transaction.currency = :currency', {currency: findOptions.currency});
         }
 
-        return await this.transactionRepository.find({
-            relations: ['customer'],
-            take: findOptions.take,
-            skip: findOptions.skip,
-            where: wherePayload,
-        });
+        return transactions.getManyAndCount();
     }
 
-    async findCount(): Promise<number> {
+    async findCount(findOptions): Promise<number> {
         const transactions = await this.transactionRepository.find();
 
         return transactions.length;

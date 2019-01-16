@@ -23,6 +23,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   public transactionsCount;
 
   public transactions;
+  public isLoading = false;
   public filteredTransactions;
   public filteredCurrency;
   public filteredStatus;
@@ -41,25 +42,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   constructor(private transactionService: TransactionService, private deleteService: DeleteService) { }
 
   ngOnInit() {
-    this.getTransactions();
-    this.getTransactionsCount();
-  }
-
-  async getTransactions() {
-    this.txSubscription = await this.transactionService.getData({take: this.selectedSize, skip: this.currentPage}).subscribe(data => {
-      this.transactions = data;
-      this.filteredTransactions = new MatTableDataSource(this.transactions);
-      this.filteredTransactions.sort = this.sort;
-    });
-  }
-
-  async getTransactionsCount() {
-    this.txCountSubscription = await this.transactionService.getCount().subscribe(data => {
-      this.transactionsCount = data;
-      if (data <= this.selectedSize) {
-          this.disableNext = true;
-      }
-    });
+    this.paginateArrows();
   }
 
   sendItem(item, itemUrl: string, redirect: string): void {
@@ -71,14 +54,17 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.deleteService.messageSource.next(data);
   }
 
-  paginateArrows(action: string) {
+  paginateArrows(action?: string) {
+    this.isLoading = true;
     if (action === 'next') {
       this.currentPage += this.selectedSize;
     }
-
     if (action === 'prev' && this.currentPage > this.selectedSize) {
       this.currentPage -= this.selectedSize;
     } else if (action === 'prev') {
+      this.currentPage = 0;
+    }
+    if ((this.filteredCurrency || this.filteredStatus || this.filteredName) && !action) {
       this.currentPage = 0;
     }
 
@@ -86,16 +72,20 @@ export class TransactionComponent implements OnInit, OnDestroy {
         take: this.selectedSize,
         skip: this.currentPage,
         currency: this.filteredCurrency,
-        status: this.filteredStatus
+        status: this.filteredStatus,
+        name: this.filteredName
     }).subscribe(data => {
-      this.transactions = data;
+      this.transactions = data[0];
+      this.transactionsCount = data[1];
       this.filteredTransactions = new MatTableDataSource(this.transactions);
+      this.filteredTransactions.sort = this.sort;
 
       if (this.selectedSize > this.transactions.length) {
         this.disableNext = true;
       } else {
         this.disableNext = false;
       }
+      this.isLoading = false;
     });
   }
 
