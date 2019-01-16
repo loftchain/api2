@@ -55,21 +55,8 @@ export class TransactionController {
     })
     @UseGuards(AuthGuard())
     @Get()
-    async find(@Query() findOptions): Promise<Transaction[]> {
+    async find(@Query() findOptions): Promise<[Transaction[], number]> {
         return this.transactionService.find(findOptions);
-    }
-
-    @ApiBearerAuth()
-    @ApiOperation({title: 'Get count transactions'})
-    @ApiResponse({
-        status: 200,
-        description: 'get count transactions',
-        type: Number,
-    })
-    @UseGuards(AuthGuard())
-    @Get('count')
-    async findCount(): Promise<number> {
-        return this.transactionService.findCount();
     }
 
     @ApiBearerAuth()

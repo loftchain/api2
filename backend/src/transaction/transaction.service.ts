@@ -111,7 +111,7 @@ export class TransactionService {
         return true;
     }
 
-    async find(findOptions) {
+    async find(findOptions): Promise<[Transaction[], number]> {
         const transactions = await this.transactionRepository.createQueryBuilder('transaction')
             .leftJoinAndSelect('transaction.customer', 'customer')
             .skip(findOptions.skip)
@@ -128,12 +128,6 @@ export class TransactionService {
         }
 
         return transactions.getManyAndCount();
-    }
-
-    async findCount(findOptions): Promise<number> {
-        const transactions = await this.transactionRepository.find();
-
-        return transactions.length;
     }
 
     async create(request: DeepPartial<Transaction>): Promise<Transaction> {
