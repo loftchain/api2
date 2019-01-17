@@ -1,5 +1,5 @@
 import {Injectable, HttpService} from '@nestjs/common';
-import {Repository} from 'typeorm';
+import {FindConditions, Repository} from 'typeorm';
 
 import { Currency } from './currency.entity';
 import { CurrencyDto } from './currency.dto';
@@ -86,5 +86,12 @@ export class CurrencyService {
         return {
             status: true,
         };
+    }
+
+    async findByPair(currency: string): Promise<Currency> {
+        return await this.currencyRepository.findOne({
+            where: {pair: currency},
+            order: {id: 'DESC'},
+        });
     }
 }

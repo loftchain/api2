@@ -11,10 +11,11 @@ import { CurrencyModule } from './currency/currency.module';
 import { TransactionModule } from './transaction/transaction.module';
 import {ApiTransactionModule} from './api/transaction/transaction.module';
 import {ApiCurrencyModule} from './api/currency/currency.module';
+import {WebsocketModule} from './websocket/websocket.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot(), ConfigModule, UserModule, AuthModule, CustomerModule, CurrencyModule, TransactionModule,
-      ApiTransactionModule, ApiCurrencyModule],
+      ApiTransactionModule, ApiCurrencyModule, WebsocketModule],
   controllers: [AppController],
   providers: [AppService],
 })
