@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import * as cors from 'cors';
+import { WsAdapter } from '@nestjs/websockets/adapters';
 
 import { AppModule } from './app.module';
 import { ConfigModule } from './config/config.module';
@@ -9,7 +10,7 @@ import { ConfigService } from './config/config.service';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new ConfigService('.env');
-
+  app.useWebSocketAdapter(new WsAdapter(app.getHttpServer()));
   app.use(cors([
     config.get('FRONT_URL'),
   ]));

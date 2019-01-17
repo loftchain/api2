@@ -27,6 +27,7 @@
     "@nestjs/passport": "^5.1.0",
     "@nestjs/swagger": "^2.5.1",
     "@nestjs/typeorm": "^5.2.2",
+    "@nestjs/websockets": "^5.5.0",
     "bcrypt-nodejs": "0.0.3",
     "class-transformer": "^0.2.0",
     "dotenv": "^6.2.0",
@@ -38,6 +39,7 @@
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.2.2",
+    "socket.io-redis": "^5.2.0",
     "typeorm": "^0.2.9",
     "typescript": "^3.0.1"
   },
