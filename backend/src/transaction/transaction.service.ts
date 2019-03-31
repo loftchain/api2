@@ -1,12 +1,19 @@
-import {Injectable, Inject, HttpService} from '@nestjs/common';
-import {FindManyOptions, Repository} from 'typeorm';
-import { DeepPartial } from 'typeorm/common/DeepPartial';
-import { InjectRepository } from '@nestjs/typeorm';
+import {
+    Injectable,
+    Inject,
+    HttpService
+} from '@nestjs/common';
+import {
+    FindManyOptions,
+    Repository
+} from 'typeorm';
+import {DeepPartial} from 'typeorm/common/DeepPartial';
+import {InjectRepository} from '@nestjs/typeorm';
 
-import { Transaction } from './transaction.entity';
-import { Wallet } from '../wallet/wallet.entity';
-import { Customer } from '../customer/customer.entity';
-import { ConfigService } from '../config/config.service';
+import {Transaction} from './transaction.entity';
+import {Wallet} from '../wallet/wallet.entity';
+import {Customer} from '../customer/customer.entity';
+import {ConfigService} from '../config/config.service';
 
 @Injectable()
 export class TransactionService {
@@ -21,18 +28,18 @@ export class TransactionService {
     private grabEth(wallet: string) {
         return this.httpService.get('http://api.etherscan.io/api?module=account&action=txlist&address=' + wallet + '&sort=asc&apikey='
             + this.config.get('API_KEY_ETH'));
-                // transactions = res.data.result;
+        // transactions = res.data.result;
     }
 
     private getNumberTransactionsBtc(wallet: string) {
         return this.httpService.get('https://chain.so/api/v2/address/BTC/' + wallet);
-                // count = res.data.data.total_txs;
+        // count = res.data.data.total_txs;
     }
 
     private grabBtc(wallet: string, lastetTx: string) {
         return this.httpService.get('https://block.io/api/v2/get_transactions/?api_key='
             + this.config.get('API_KEY_BTC') + '&type=received&addresses=' + wallet + '&before_tx=' + lastetTx);
-                // transactions = res.data.data.txs;
+        // transactions = res.data.data.txs;
 
     }
 
@@ -87,23 +94,25 @@ export class TransactionService {
         wallets.map(async wallet => {
             this.grabEth(wallet.wallet).subscribe(res => {
                 const transactions = res.data.result;
-                if (transactions.data) {
-                    transactions.map(async transaction => {
-                        const isTransaction = await this.transactionRepository.findOne({txId: transaction.hash});
-                        if (!isTransaction) {
-                            const newTransaction = await this.transactionRepository.create({
-                                txId: transaction.hash,
-                                currency: wallet.currency,
-                                from: transaction.from,
-                                amount: transaction.value / 1000000000000000000,
-                                date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
-                                status: transaction.isError === 1 ? 'false' : 'true',
-                                customer: wallet.customer,
-                            });
-                            await this.transactionRepository.save(newTransaction);
-                        }
-                    });
+                if (!transactions) {
+                    console.log('Something went wrong while etherscan api call');
+                    return false;
                 }
+                transactions.map(async transaction => {
+                    const isTransaction = await this.transactionRepository.findOne({txId: transaction.hash});
+                    if (!isTransaction) {
+                        const newTransaction = await this.transactionRepository.create({
+                            txId: transaction.hash,
+                            currency: wallet.currency,
+                            from: transaction.from,
+                            amount: transaction.value / 1000000000000000000,
+                            date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
+                            status: transaction.isError === 1 ? 'false' : 'true',
+                            customer: wallet.customer,
+                        });
+                        await this.transactionRepository.save(newTransaction);
+                    }
+                });
 
             }, error => console.log(error.response));
         });
@@ -143,7 +152,7 @@ export class TransactionService {
     }
 
     async update(id: number, request: DeepPartial<Transaction>): Promise<boolean> {
-        const findCustomer =  await this.customerRepository.findOne(request.customer);
+        const findCustomer = await this.customerRepository.findOne(request.customer);
         const merge = Object.assign(request, {findCustomer});
         await this.transactionRepository.update(id, merge);
 
