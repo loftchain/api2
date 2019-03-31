@@ -28,7 +28,7 @@ export class TransactionController {
         status: 200,
         description: 'Success grab.',
     })
-    @UseGuards(AuthGuard())
+     @UseGuards(AuthGuard())
     @Get('grab/eth')
     async grabEth(): Promise<boolean> {
         return this.transactionService.storeEthTx();
