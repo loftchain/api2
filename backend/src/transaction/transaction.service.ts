@@ -107,7 +107,7 @@ export class TransactionService {
                             from: transaction.from,
                             amount: transaction.value / 1000000000000000000,
                             date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
-                            status: transaction.isError === 1 ? 'false' : 'true',
+                            status: transaction.isError === '1' ? 'false' : 'true',
                             customer: wallet.customer,
                         });
                         await this.transactionRepository.save(newTransaction);
