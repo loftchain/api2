@@ -2,8 +2,6 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinColumn,
-    JoinTable,
     ManyToOne,
     PrimaryGeneratedColumn,
     UpdateDateColumn
@@ -34,7 +32,7 @@ export class Transaction {
     amount: number;
 
     @ApiModelProperty()
-    @Column({type: 'datetime', nullable: true})
+    @Column({length: 255, nullable: true})
     date: string;
 
     @ApiModelProperty()
