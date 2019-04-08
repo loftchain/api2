@@ -68,7 +68,7 @@ export class TransactionService {
                                         currency: wallet.currency,
                                         from: transaction.senders[0],
                                         amount: transaction.amounts_received[0].amount,
-                                        date: new Date(Number(transaction.time) * 1000).toUTCString(),
+                                        date: transaction.time,
                                         status: transaction.confidence === 1 ? 'true' : 'false',
                                         customer: wallet.customer,
                                     });
@@ -106,7 +106,7 @@ export class TransactionService {
                             currency: wallet.currency,
                             from: transaction.from,
                             amount: transaction.value / 1000000000000000000,
-                            date: new Date(Number(transaction.timeStamp) * 1000).toUTCString(),
+                            date: transaction.timeStamp,
                             status: transaction.isError === '1' ? 'false' : 'true',
                             customer: wallet.customer,
                         });
